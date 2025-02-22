@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string": "cpp"
     },
     "cmake.ignoreCMakeListsMissing": true
 }

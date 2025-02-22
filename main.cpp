@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+using std::string;
 #include "raylib.h"
 
 #include "Pop.h"
@@ -11,16 +13,28 @@ int main(int, char**) {
 
     InitWindow(1280, 720, "Historio");
 
+    //  Game Mechanics
+    Pop tribe(100);
 
+
+    string TribePopStr = "Population: ";
 
     while(!WindowShouldClose()) {
+        /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(bgColor);
 
-        
+        /*//     Update Objects     //*/
+        tribe.update();
 
-        DrawTextEx(pixantiqua_font, "Hello Historio", Vector2{10, 10}, 40, 5, Color{45, 100, 200, 255});
 
+        /*//     Draw User Interface (UI)     //*/
+        DrawTextEx(pixantiqua_font, "Tribe", Vector2{15, 15}, 40, 5, Color{45, 100, 200, 255});
+        TribePopStr = ("Population: " + tribe.getPopulation());
+        DrawTextEx(pixantiqua_font, TribePopStr.c_str(), Vector2{15, 60}, 40, 5, Color{45, 100, 200, 255});
+        //DrawTextEx(pixantiqua_font, "Hello Historio", Vector2{10, 15}, 40, 5, Color{45, 100, 200, 255});
+
+        /*//     Finish Drawing Frame     //*/
         EndDrawing();
     }
     CloseWindow();
