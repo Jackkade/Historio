@@ -1,6 +1,12 @@
 #include "Location.h"
 
 
+void Location::changeName(std::string s) {
+    if(!s.empty()) {
+        m_name = s;
+    }
+}
+
 void Location::changeTerrain(Terrain t) {
     m_terrain = t;
 }
