@@ -10,7 +10,12 @@ Pop::Pop(unsigned int population, Location& l) {
 }
 
 void Pop::update() {
-    
+    if(m_location->getClimate() == Temperate) {
+        m_population += 10;
+    }
+    else {
+        m_population += 1;
+    }
 }
 
 void Pop::setLocation(Location& l) {
