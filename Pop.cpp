@@ -14,6 +14,9 @@ void Pop::update() {
         m_population += 10;
     }
     else {
+        if (m_population % 10 == 0) {
+            m_unrest += 1;
+        }
         m_population += 1;
     }
 }
