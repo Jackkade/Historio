@@ -1,0 +1,54 @@
+
+Locations - 
+    Relations:
+        Settlements - 
+            Pops, Buildings
+        Owner - 
+            Actors
+        ? Roads ?
+    Attributes:
+        Terrain
+        Vegetation
+        Climate
+
+Pops - 
+    Relations:
+        Loyalty -
+            Actors
+        Residence -
+            Settlements
+        Jobs - 
+            Buildings
+    Attributes:
+        Internal:
+            Population
+            Unrest
+            Standard Of Living
+            Food
+        External:
+            Culture
+            Religion
+            Language
+            ? Ideology ?
+
+Settlements - 
+    Relations:
+        Residents - 
+            Pops
+            Buildings
+        Location - 
+            Locations
+        Owner - 
+            Actors
+    Attributes:
+        Development
+        Civilization
+        Control
+        Rank - 
+            ? Camp ?
+            Community
+            Village
+            Town
+            City
+            Metropolis
+            Megalopolis
