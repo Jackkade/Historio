@@ -11,6 +11,7 @@ public:
         m_provIds++;
     }
 
+    unsigned int getID() { return m_id; }
     std::string getName() { return m_name; }
     Climate getClimate() { return m_climate; }
     Terrain getTerrain() { return m_terrain; }
