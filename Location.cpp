@@ -1,5 +1,6 @@
 #include "Location.h"
 
+unsigned int Location::m_provIds = 0;
 
 void Location::changeName(std::string s) {
     if(!s.empty()) {

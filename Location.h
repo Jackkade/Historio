@@ -6,7 +6,10 @@
 class Location {
 public:
 
-    Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain(t), m_vegetation(v) {}
+    Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain(t), m_vegetation(v) {
+        m_id = m_provIds;
+        m_provIds++;
+    }
 
     std::string getName() { return m_name; }
     Climate getClimate() { return m_climate; }
@@ -19,6 +22,8 @@ public:
     void changeVegetation(Vegetation v);
     void changeClimate(Climate c);
 private:
+    unsigned int m_id;
+    static unsigned int m_provIds;
     std::string m_name;
     Climate m_climate;
     Terrain m_terrain;
