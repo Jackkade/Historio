@@ -14,7 +14,7 @@ enum Terrain {
     Wetlands,
     Floodplains,
     Flat,
-    LowHills,
+    RollingHills,
     Hills,
     Plateau,
     Mountains
