@@ -15,7 +15,7 @@ enum Terrain {
     Floodplains,
     Flat,
     RollingHills,
-    Hills,
+    RuggedHills,
     Plateau,
     Mountains
 };
