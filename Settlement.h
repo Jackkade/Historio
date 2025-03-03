@@ -5,7 +5,7 @@
 class Settlement {
 public:
 
-    void addPop(Pop p);
+    void addPop(Pop* p);
 private:
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
