@@ -11,6 +11,7 @@
                 "-g",
                 "-I C:/raylib/raylib/",
                 "-L C:/raylib/raylib/",
+                "-static",
                 "-lraylib",
                 "-lwinmm",
                 "-lgdi32"
