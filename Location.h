@@ -1,7 +1,11 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 #include <string>
+#include <vector>
 #include "Terrain.h"
+#include "Settlement.h"
+
+class Settlement;
 
 class Location {
 public:
@@ -33,6 +37,7 @@ private:
     //Climate, Terrain, Vegetation
     //Neighbors
     //Settlements
+    std::vector<Settlement> m_settlements;
     //Countryside
 };
 

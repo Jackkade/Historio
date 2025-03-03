@@ -4,13 +4,13 @@ Pop::Pop(unsigned int population) {
     addPopulation(population - 1);
 }
 
-Pop::Pop(unsigned int population, Location& l) {
-    setLocation(l);
+Pop::Pop(unsigned int population, Settlement& l) {
+    setSettlement(l);
     addPopulation(population - 1);
 }
 
 void Pop::update() {
-    if(m_location->getClimate() == Temperate) {
+    if(m_settlement->getLocation()->getClimate() == Temperate) {
         m_population += 10;
     }
     else {
@@ -21,8 +21,8 @@ void Pop::update() {
     }
 }
 
-void Pop::setLocation(Location& l) {
-    m_location = &l;
+void Pop::setSettlement(Settlement& l) {
+    m_settlement = &l;
 }
 
 

@@ -20,7 +20,9 @@ int main(int, char**) {
     Location location_1(Tropical, Flat, Farmlands);
     location_1.changeName("Judith");
 
-    Pop tribe(100, location_1);
+    Settlement settlement_1(&location_1);
+
+    Pop tribe(100, settlement_1);
 
     string TribePopStr = "Population: ";
     string TribeUnrestStr = "Unrest: ";

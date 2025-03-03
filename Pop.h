@@ -1,13 +1,17 @@
 #ifndef POP_H
 #define POP_H
+#include "Settlement.h"
 #include "Location.h"
+
+class Location;
+class Settlement;
 
 class Pop {
 public:
     //Constructors
     Pop() = default;                                //Default Attributes
     Pop(unsigned int population);                   //Default with Pop
-    Pop(unsigned int population, Location& l);      //With Pop, in location
+    Pop(unsigned int population, Settlement& l);      //With Pop, in Settlement
 
     //TODO: once reference are added, make constructors require pointers
     
@@ -19,7 +23,7 @@ public:
     void addUnrest(int a);
     void addSOL(int a);
     void addFood(int a);
-    void setLocation(Location& l);
+    void setSettlement(Settlement& l);
 
     //Getters
     unsigned int getPopulation() { return m_population; }
@@ -39,7 +43,7 @@ private:
                                     //Language
     // Relations
                                     //Loyalty
-    Location* m_location = nullptr;
+    Settlement* m_settlement = nullptr;
                                     //Job
 };
 
