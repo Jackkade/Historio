@@ -3,7 +3,9 @@
 #include <iostream>
 #include <string>
 using std::string;
-#include "raylib.h"
+#include <raylib.h>
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
 
 #include "Pop.h"
 
@@ -17,7 +19,7 @@ int main(int, char**) {
     SetTargetFPS(60);
 
     //  Game Mechanics
-    Location location_1(Tropical, Flat, Farmlands);
+    Location location_1(Temperate, Flat, Farmlands);
     location_1.changeName("Judith");
 
     Settlement settlement_1(&location_1);
@@ -30,8 +32,10 @@ int main(int, char**) {
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
-        ClearBackground(bgColor);
-
+        ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
+        GuiPanel((Rectangle){ 104, 240, 984, 488 }, "Pepus");
+        GuiButton((Rectangle){ 112, 232, 120, 24 }, "KILL"); 
+        GuiButton((Rectangle){ 112, 264, 120, 24 }, "LIVE"); 
         /*//     Update Objects     //*/
         tribe.update();
 

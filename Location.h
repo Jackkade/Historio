@@ -30,11 +30,11 @@ private:
     unsigned int m_id;
     static unsigned int m_provIds;
     std::string m_name;
+    //Climate, Terrain, Vegetation
     Climate m_climate;
     Terrain m_terrain;
     Vegetation m_vegetation;
     //Owner
-    //Climate, Terrain, Vegetation
     //Neighbors
     //Settlements
     std::vector<Settlement> m_settlements;
