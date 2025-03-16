@@ -1,7 +1,7 @@
 #include "Pop.h"
 
-Pop::Pop(unsigned int population) {
-    addPopulation(population - 1);
+Pop::Pop(Settlement& l) {
+    setSettlement(l);
 }
 
 Pop::Pop(unsigned int population, Settlement& l) {

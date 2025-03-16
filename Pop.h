@@ -8,10 +8,12 @@ class Settlement;
 
 class Pop {
 public:
+    /*
+        From now on, Pops should always be in a location.
+    */
     //Constructors
-    Pop() = default;                                //Default Attributes
-    Pop(unsigned int population);                   //Default with Pop
-    Pop(unsigned int population, Settlement& l);      //With Pop, in Settlement
+    Pop(Settlement& l);                                 //Default in Settlement
+    Pop(unsigned int population, Settlement& l);        //With Pop, in Settlement
 
     //TODO: once reference are added, make constructors require pointers
     
