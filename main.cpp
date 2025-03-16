@@ -29,13 +29,20 @@ int main(int, char**) {
     string TribePopStr = "Population: ";
     string TribeUnrestStr = "Unrest: ";
 
+    
+    int ListView003ScrollIndex = 0;
+    int ListView003Active = 0;
+
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
-        GuiPanel((Rectangle){ 104, 240, 984, 488 }, "Pepus");
-        GuiButton((Rectangle){ 112, 232, 120, 24 }, "KILL"); 
-        GuiButton((Rectangle){ 112, 264, 120, 24 }, "LIVE"); 
+
+        GuiPanel((Rectangle){ 56, 80, 984, 488 }, "Pepus");
+        GuiButton((Rectangle){ 64, 112, 120, 24 }, "KILL"); 
+        GuiButton((Rectangle){ 64, 144, 120, 24 }, "LIVE"); 
+        GuiListView((Rectangle){ 64, 176, 120, 72 }, "ONE;TWO;THREE", &ListView003ScrollIndex, &ListView003Active);
+        GuiLine((Rectangle){ 56, 296, 984, 12 }, NULL);
         /*//     Update Objects     //*/
         tribe.update();
 
