@@ -1,5 +1,5 @@
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 #include <iostream>
 #include <string>
 using std::string;
@@ -11,9 +11,14 @@ using std::string;
 
 int main(int, char**) {
 
-    Font pixantiqua_font = LoadFont("resources/fonts/pixantiqua.png");
+    bool WindowBox005Active = true;
+    bool TextBox003EditMode = false;
+    char TextBox002Text[128] = "SAMPLE TEXT";
+    bool LabelButton002Pressed = false;
+    bool LabelButton003Pressed = false;
+    bool LabelButton004Pressed = false;
 
-    const Color bgColor = {25, 25, 25, 255};
+    GuiSetFont(LoadFont("resources/fonts/pixantiqua.png"));
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Historio");
     SetTargetFPS(60);
@@ -21,6 +26,7 @@ int main(int, char**) {
     //  Game Mechanics
     Location location_1(Temperate, Flat, Farmlands);
     location_1.changeName("Judith");
+    strncpy(TextBox002Text, location_1.getName().c_str(), 128);
 
     Settlement settlement_1(&location_1);
 
@@ -29,33 +35,43 @@ int main(int, char**) {
     string TribePopStr = "Population: ";
     string TribeUnrestStr = "Unrest: ";
 
-    
-    int ListView003ScrollIndex = 0;
-    int ListView003Active = 0;
 
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 
-        GuiPanel((Rectangle){ 56, 80, 984, 488 }, "Pepus");
-        GuiButton((Rectangle){ 64, 112, 120, 24 }, "KILL"); 
-        GuiButton((Rectangle){ 64, 144, 120, 24 }, "LIVE"); 
-        GuiListView((Rectangle){ 64, 176, 120, 72 }, "ONE;TWO;THREE", &ListView003ScrollIndex, &ListView003Active);
-        GuiLine((Rectangle){ 56, 296, 984, 12 }, NULL);
+        
+        
+        
         /*//     Update Objects     //*/
         tribe.update();
-
-
+        
+        
+        
+        
         /*//     Draw User Interface (UI)     //*/
         //      Pop (Tribe) Info
-        DrawTextEx(pixantiqua_font, "Tribe", Vector2{15, 15}, 40, 5, Color{45, 100, 200, 255});
         TribePopStr = ("Population: " + std::to_string(tribe.getPopulation()));
-        DrawTextEx(pixantiqua_font, TribePopStr.c_str(), Vector2{15, 60}, 40, 5, Color{45, 100, 200, 255});
+        DrawText(TribePopStr.c_str(), 15, 60, 40, Color{45, 100, 200, 255});
         TribeUnrestStr = ("Unrest: " + std::to_string(tribe.getUnrest()));        
-        DrawTextEx(pixantiqua_font, TribeUnrestStr.c_str(), Vector2{15, 105}, 40, 5, Color{45, 100, 200, 255});
+        DrawText(TribeUnrestStr.c_str(), 15, 105, 40, Color{45, 100, 200, 255});
+        
         //      Location Info
-        DrawTextEx(pixantiqua_font, location_1.getName().c_str(), Vector2{SCREEN_WIDTH - 250, 15}, 40, 5, Color{45, 100, 200, 255});
+        if (WindowBox005Active) {
+            WindowBox005Active = !GuiWindowBox((Rectangle){ 312, 192, 464, 320 }, "");
+            if (GuiTextBox((Rectangle){ 320, 232, 120, 24 }, TextBox002Text, 128, TextBox003EditMode)) {
+                TextBox003EditMode = !TextBox003EditMode;
+                location_1.changeName(TextBox002Text);
+            }
+            LabelButton002Pressed = GuiButton((Rectangle){ 320, 480, 120, 24 }, std::to_string(location_1.getClimate()).c_str());
+            LabelButton003Pressed = GuiButton((Rectangle){ 320, 448, 120, 24 }, "SAMPLE TEXT");
+            LabelButton004Pressed = GuiButton((Rectangle){ 320, 416, 120, 24 }, "SAMPLE TEXT");
+        }
+        else {
+            WindowBox005Active = GuiButton((Rectangle){ 312, 192, 120, 24 }, "SAMPLE TEXT");
+        }
+
 
         /*//     Finish Drawing Frame     //*/
         EndDrawing();
