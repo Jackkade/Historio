@@ -10,9 +10,10 @@ class Settlement;
 class Location {
 public:
 
-    Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain(t), m_vegetation(v) {
-        m_id = m_provIds;
-        m_provIds++;
+    Location(Climate c, Terrain t, Vegetation v);
+
+    ~Location() { //Delete Internal Countryside Settlement
+        delete m_countryside;
     }
 
     unsigned int getID() { return m_id; }
@@ -39,6 +40,7 @@ private:
     //Settlements
     std::vector<Settlement> m_settlements;
     //Countryside
+    Settlement* m_countryside = nullptr;
 };
 
 #endif
