@@ -13,6 +13,24 @@ Location::~Location() {
     delete m_countryside;
 }
 
+void Location::update() {
+    //Handle Settlements
+    if(m_countryside) {
+        m_countryside->update();
+    }
+    for(Settlement s : m_settlements) {
+        s.update();
+    }
+
+    //Handle Location
+    if(m_civilization > 10000) {
+        m_civilization = 10000;
+    }
+    if(m_development > 10000) {
+        m_development = 10000;
+    }
+}
+
 void Location::changeName(std::string s) {
     if(!s.empty()) {
         m_name = s;

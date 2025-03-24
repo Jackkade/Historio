@@ -55,6 +55,16 @@ private:
     std::vector<Settlement> m_settlements;
     //Countryside
     Settlement* m_countryside = nullptr;
+
+    //Gov Attributes
+    
+    //  Int represented as Decimal between 0.00 <-> 100.00 
+    //  When Printing this, divide by 100 first
+    unsigned int m_civilization = 0; 
+    //  Int represented as Decimal between 0.00 <-> 100.00 
+    //  When Printing this, divide by 100 first
+    unsigned int m_development = 0; 
+
 };
 
 #endif
