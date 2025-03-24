@@ -10,6 +10,8 @@ Locations -
         Terrain
         Vegetation
         Climate
+        Development
+        Civilization
 
 Pops - 
     Relations:
@@ -41,8 +43,6 @@ Settlements -
         Owner - 
             Actors
     Attributes:
-        Development
-        Civilization
         Control
         Rank - 
             ? Camp ?

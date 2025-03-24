@@ -32,6 +32,7 @@ private:
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
     Rank m_rank = Community;
+    unsigned int m_control = 50;
 
 };
 
