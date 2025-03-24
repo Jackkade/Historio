@@ -30,3 +30,11 @@ int Settlement::getPopulation() {
     }
     return rt;
 }
+
+Rank Settlement::getRank() {
+    return m_rank;
+}
+
+void Settlement::setRank(Rank r) {
+    m_rank = r;
+}

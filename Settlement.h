@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Types.h"
+#include "Ranks.h"
 #include "Pop.h"
 
 
@@ -22,9 +23,15 @@ public:
 
     int getPopulation(); 
 
+    Rank getRank();
+
+    //Setters
+    void setRank(Rank r);
+
 private:
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
+    Rank m_rank = Camp;
 
 };
 
