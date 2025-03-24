@@ -26,7 +26,7 @@ int main(int, char**) {
     SetTargetFPS(60);
 
     //  Game Mechanics
-    Location location_1(Temperate, Flat, Farmlands);
+    Location location_1(Oceanic, Flat, Farmlands);
     location_1.changeName("Judith");
     strncpy(TextBox002Text, location_1.getName().c_str(), 128);
 

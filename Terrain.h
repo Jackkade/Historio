@@ -26,7 +26,7 @@ enum Vegetation {
     Forest,
     DenseForest,
     Sparce,
-    Desert
+    Barren
 };
 
 #endif
