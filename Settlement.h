@@ -8,7 +8,7 @@
 
 class Settlement {
 public:
-    Settlement(Location* l) : m_location{l} {};
+    Settlement(Location* l);
     ~Settlement();
 
 
@@ -17,6 +17,10 @@ public:
     void addPop(Pop* p);
 
     void update();
+
+    /*~~~~~~*/
+
+    int getPopulation(); 
 
 private:
     Location* m_location = nullptr;

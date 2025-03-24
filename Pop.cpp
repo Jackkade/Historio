@@ -22,7 +22,9 @@ void Pop::update() {
 }
 
 void Pop::setSettlement(Settlement& l) {
+    //TODO: remove from old settlement
     m_settlement = &l;
+    l.addPop(this);
 }
 
 

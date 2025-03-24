@@ -13,6 +13,8 @@ public:
 
     ~Location();
 
+    //Attribute Getters
+
     unsigned int getID() { return m_id; }
     std::string getName() { return m_name; }
     Climate getClimate() { return m_climate; }
@@ -20,10 +22,23 @@ public:
     Vegetation getVegetation() { return m_vegetation; }
 
 
+    //Attribute Setters
+
     void changeName(std::string s);
     void changeTerrain(Terrain t);
     void changeVegetation(Vegetation v);
     void changeClimate(Climate c);
+
+    /*------------------*/
+
+    //Relationship getters
+
+    int getPopulation(); 
+
+    //Relationship Setters
+
+    void addSettlement(Settlement s);
+
 private:
     unsigned int m_id;
     static unsigned int m_provIds;

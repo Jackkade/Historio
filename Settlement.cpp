@@ -1,5 +1,10 @@
 #include "Settlement.h"
 
+Settlement::Settlement(Location *l) {
+    m_location = l;
+    l->addSettlement(*this);
+}
+
 Settlement::~Settlement()
 {
 }
@@ -15,4 +20,13 @@ void Settlement::update() {
         m_pops.at(i)->update();
     }
 
+}
+
+int Settlement::getPopulation() {
+    
+    int rt = 0;
+    for (Pop* p : m_pops) {
+        rt += p->getPopulation();    
+    }
+    return rt;
 }

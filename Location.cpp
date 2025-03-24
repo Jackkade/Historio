@@ -27,3 +27,17 @@ void Location::changeVegetation(Vegetation v) {
 void Location::changeClimate(Climate c) {
     m_climate = c;
 }
+
+int Location::getPopulation() {
+    int rt = m_countryside->getPopulation();
+
+    for(Settlement s : m_settlements) {
+        rt += s.getPopulation();
+    }
+
+    return rt;
+}
+
+void Location::addSettlement(Settlement s) {
+    m_settlements.push_back(s);
+}

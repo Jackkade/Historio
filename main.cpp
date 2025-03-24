@@ -54,10 +54,8 @@ int main(int, char**) {
         
         /*//     Draw User Interface (UI)     //*/
         //      Pop (Tribe) Info
-        TribePopStr = ("Population: " + std::to_string(tribe.getPopulation()));
-        DrawText(TribePopStr.c_str(), 15, 60, 40, Color{45, 100, 200, 255});
+        TribePopStr = ("Population: " + std::to_string(settlement_1.getPopulation()));
         TribeUnrestStr = ("Unrest: " + std::to_string(tribe.getUnrest()));        
-        DrawText(TribeUnrestStr.c_str(), 15, 105, 40, Color{45, 100, 200, 255});
         
         //      Location Info
         if (WindowBox005Active) {
@@ -67,8 +65,8 @@ int main(int, char**) {
                 location_1.changeName(TextBox002Text);
             }
             LabelButton002Pressed = GuiButton((Rectangle){ 320, 480, 120, 24 }, std::to_string(location_1.getClimate()).c_str());
-            LabelButton003Pressed = GuiButton((Rectangle){ 320, 448, 120, 24 }, "SAMPLE TEXT");
-            LabelButton004Pressed = GuiButton((Rectangle){ 320, 416, 120, 24 }, "SAMPLE TEXT");
+            LabelButton003Pressed = GuiButton((Rectangle){ 320, 448, 120, 24 }, TribePopStr.c_str());
+            LabelButton004Pressed = GuiButton((Rectangle){ 320, 416, 120, 24 }, TribeUnrestStr.c_str());
         }
         else {
             WindowBox005Active = GuiButton((Rectangle){ 312, 192, 120, 24 }, "SAMPLE TEXT");
