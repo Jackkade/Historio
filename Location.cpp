@@ -8,6 +8,10 @@ Location::Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain
     m_countryside = new Settlement(this);
 }
 
+Location::~Location() {
+    delete m_countryside;
+}
+
 void Location::changeName(std::string s) {
     if(!s.empty()) {
         m_name = s;

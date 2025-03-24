@@ -2,19 +2,16 @@
 #define LOCATION_H
 #include <string>
 #include <vector>
+#include "Types.h"
 #include "Terrain.h"
 #include "Settlement.h"
-
-class Settlement;
 
 class Location {
 public:
 
     Location(Climate c, Terrain t, Vegetation v);
 
-    ~Location() { //Delete Internal Countryside Settlement
-        delete m_countryside;
-    }
+    ~Location();
 
     unsigned int getID() { return m_id; }
     std::string getName() { return m_name; }

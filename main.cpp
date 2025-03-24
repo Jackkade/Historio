@@ -8,6 +8,8 @@ using std::string;
 #include "raygui.h"
 
 #include "Pop.h"
+#include "Location.h"
+#include "Settlement.h"
 
 int main(int, char**) {
 

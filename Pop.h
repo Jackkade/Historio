@@ -1,10 +1,9 @@
 #ifndef POP_H
 #define POP_H
+#include "Types.h"
 #include "Settlement.h"
+#include "Terrain.h"
 #include "Location.h"
-
-class Location;
-class Settlement;
 
 class Pop {
 public:

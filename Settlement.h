@@ -2,15 +2,14 @@
 #define SETTLEMENT_H
 
 #include <vector>
-#include "Location.h"
+#include "Types.h"
 #include "Pop.h"
 
-class Pop;
-class Location;
 
 class Settlement {
 public:
     Settlement(Location* l) : m_location{l} {};
+    ~Settlement();
 
 
     Location* getLocation() { return m_location; }
