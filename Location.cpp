@@ -6,6 +6,7 @@ Location::Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain
     m_id = m_provIds;
     m_provIds++;
     m_countryside = new Settlement(this);
+    m_countryside->setRank(Camp);
 }
 
 Location::~Location() {

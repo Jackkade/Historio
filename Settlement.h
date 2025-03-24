@@ -31,7 +31,7 @@ public:
 private:
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
-    Rank m_rank = Camp;
+    Rank m_rank = Community;
 
 };
 
