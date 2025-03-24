@@ -32,7 +32,9 @@ private:
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
     Rank m_rank = Community;
-    unsigned int m_control = 50;
+    //  Int represented as Decimal between 0.00 <-> 100.00 
+    //  When Printing this, divide by 100 first
+    unsigned int m_control = 5000; 
 
 };
 

@@ -13,6 +13,8 @@ public:
 
     ~Location();
 
+    void update();
+
     //Attribute Getters
 
     unsigned int getID() { return m_id; }

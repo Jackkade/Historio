@@ -16,8 +16,8 @@ void Settlement::addPop(Pop *p)
 
 void Settlement::update() {
 
-    if(m_control > 100) {
-        m_control = 100; 
+    if(m_control > 10000) {
+        m_control = 10000; 
     }
     for(int i = 0; i < m_pops.size(); i++) {
         m_pops.at(i)->update();
