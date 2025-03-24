@@ -11,6 +11,12 @@ using std::string;
 #include "Location.h"
 #include "Settlement.h"
 
+void drawButtons(Rectangle bounds, Vector2 scroll) {
+    for (int i = 0; i < 100; i++ ) {
+        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 30, 120, 24 }, "woasw");
+    } 
+}
+
 int main(int, char**) {
 
     bool WindowBox005Active = true;
@@ -38,6 +44,11 @@ int main(int, char**) {
     string TribeUnrestStr = "Unrest: ";
 
 
+    Rectangle scrollPanel = {316, 408, 128, 228};
+    Rectangle panelContentRec = {0, 0, 128, 1340 };
+    Rectangle rect1 = {0, 0, 0, 0};
+    Vector2 scroll = {0, 0};
+
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
@@ -64,9 +75,15 @@ int main(int, char**) {
                 TextBox003EditMode = !TextBox003EditMode;
                 location_1.changeName(TextBox002Text);
             }
-            LabelButton002Pressed = GuiButton((Rectangle){ 320, 480, 120, 24 }, std::to_string(location_1.getClimate()).c_str());
-            LabelButton003Pressed = GuiButton((Rectangle){ 320, 448, 120, 24 }, TribePopStr.c_str());
-            LabelButton004Pressed = GuiButton((Rectangle){ 320, 416, 120, 24 }, TribeUnrestStr.c_str());
+            GuiScrollPanel(scrollPanel, NULL, panelContentRec, &scroll, &rect1);
+            BeginScissorMode(rect1.x, rect1.y, rect1.width, rect1.height);
+                //drawButtons(scrollPanel, scroll);
+                
+                LabelButton004Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y,      120, 24 }, TribeUnrestStr.c_str());
+                LabelButton003Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y + 30, 120, 24 }, TribePopStr.c_str());
+                LabelButton002Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y + 60, 120, 24 }, std::to_string(location_1.getClimate()).c_str());
+                
+            EndScissorMode();
         }
         else {
             WindowBox005Active = GuiButton((Rectangle){ 312, 192, 120, 24 }, "SAMPLE TEXT");
