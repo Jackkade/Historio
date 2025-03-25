@@ -2,7 +2,7 @@
 
 Settlement::Settlement(Location *l) {
     m_location = l;
-    l->addSettlement(*this);
+    l->addSettlement(this);
 }
 
 Settlement::~Settlement()
@@ -19,8 +19,8 @@ void Settlement::update() {
     if(m_control > 10000) {
         m_control = 10000; 
     }
-    for(int i = 0; i < m_pops.size(); i++) {
-        m_pops.at(i)->update();
+    for(Pop* p : m_pops) {
+        p->update();
     }
 
 }

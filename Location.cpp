@@ -18,8 +18,8 @@ void Location::update() {
     if(m_countryside) {
         m_countryside->update();
     }
-    for(Settlement s : m_settlements) {
-        s.update();
+    for(Settlement* s : m_settlements) {
+        s->update();
     }
 
     //Handle Location
@@ -50,13 +50,13 @@ void Location::changeClimate(Climate c) {
 int Location::getPopulation() {
     int rt = m_countryside->getPopulation();
 
-    for(Settlement s : m_settlements) {
-        rt += s.getPopulation();
+    for(Settlement* s : m_settlements) {
+        rt += s->getPopulation();
     }
 
     return rt;
 }
 
-void Location::addSettlement(Settlement s) {
+void Location::addSettlement(Settlement* s) {
     m_settlements.push_back(s);
 }

@@ -36,9 +36,11 @@ int main(int, char**) {
     location_1.changeName("Judith");
     strncpy(TextBox002Text, location_1.getName().c_str(), 128);
 
+    
     Settlement settlement_1(&location_1);
-
+    
     Pop tribe(100, settlement_1);
+
 
     string TribePopStr = "Population: ";
     string TribeUnrestStr = "Unrest: ";
@@ -58,7 +60,7 @@ int main(int, char**) {
         
         
         /*//     Update Objects     //*/
-        tribe.update();
+        location_1.update();
         
         
         

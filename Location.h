@@ -39,7 +39,7 @@ public:
 
     //Relationship Setters
 
-    void addSettlement(Settlement s);
+    void addSettlement(Settlement* s);
 
 private:
     unsigned int m_id;
@@ -52,7 +52,7 @@ private:
     //Owner
     //Neighbors
     //Settlements
-    std::vector<Settlement> m_settlements;
+    std::vector<Settlement*> m_settlements;
     //Countryside
     Settlement* m_countryside = nullptr;
 
