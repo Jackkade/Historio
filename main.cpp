@@ -1,6 +1,7 @@
 #define SCREEN_WIDTH 1080
 #define SCREEN_HEIGHT 720
 #include <iostream>
+#include <map>
 #include <string>
 using std::string;
 #include <raylib.h>
@@ -14,6 +15,35 @@ using std::string;
 #include "Location.h"
 #include "Settlement.h"
 
+//~~    Strings to use for GUI
+std::map<Climate, string> climateNames = {
+    {Oceanic, "Oceanic"},
+    {Temperate, "Temperate"},
+    {Subtropical, "Subtropical"},
+    {Tropical, "Tropical"},
+    {Arid, "Arid"},
+    {Mediterranian, "Mediterranian"},
+    {Arctic, "Arctic"}
+};
+std::map<Terrain, string> terrainNames = {
+    {Wetlands, "Wetlands"},
+    {Floodplains, "Floodplains"},
+    {Flat, "Flat"},
+    {RollingHills, "Rolling Hills"},
+    {RuggedHills, "Rugged Hills"},
+    {Plateau, "Plateau"},
+    {Mountains, "Mountains"}
+};
+std::map<Vegetation, string> vegetationNames = {
+    {Farmlands, "Farmlands"},
+    {Grasslands, "Grasslands"},
+    {Woods, "Woods"},
+    {Forest, "Forest"},
+    {DenseForest, "Dense Forest"},
+    {Sparce, "Sparce"},
+    {Barren, "Barren"}
+};
+//~~    Eventually these should be brought into their own file, but need to be here to build for now
 void drawButtons(Rectangle bounds, Vector2 scroll) {
     for (int i = 0; i < 100; i++ ) {
         GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 30, 120, 24 }, "woasw");
@@ -99,7 +129,7 @@ int main(int, char**) {
 
                 LocationViewUnrestButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y, 140, 30 }, TribeUnrestStr.c_str());
                 LocationViewPopulationButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 34, 140, 30 }, TribePopStr.c_str());
-                LocationViewTerrainButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 68, 140, 30 }, std::to_string(location_1.getClimate()).c_str());
+                LocationViewTerrainButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 68, 140, 30 }, climateNames[location_1.getClimate()].c_str());
                 
             EndScissorMode();
         }
