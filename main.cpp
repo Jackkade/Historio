@@ -22,13 +22,21 @@ void drawButtons(Rectangle bounds, Vector2 scroll) {
 
 int main(int, char**) {
 
-    bool WindowBox005Active = true;
-    bool TextBox003EditMode = false;
-    char TextBox002Text[128] = "SAMPLE TEXT";
-    bool LabelButton002Pressed = false;
-    bool LabelButton003Pressed = false;
-    bool LabelButton004Pressed = false;
-    
+    /*~~    GUI Variables   ~~*/
+    bool LocationViewActive = true;
+    bool LocationViewNameEditMode = false;
+    char LocationViewName[128] = "SAMPLE TEXT";
+    bool LocationViewUnrestButton = false;
+    bool LocationViewPopulationButton = false;
+    bool LocationViewTerrainButton = false;
+
+    Rectangle LocationViewScrollPanelBounds = {8, 66, 160, 257};
+    Rectangle LocationViewScrollPanelContent = {0, 0, 145, 600 };
+    Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
+    Vector2 LocationViewScrollPanelScroll = {0, 0};
+    /*~~                    ~~*/
+
+
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Historio");
     SetTargetFPS(60);
     GuiLoadStyle("ancien.rgs");
@@ -38,7 +46,7 @@ int main(int, char**) {
     //  Game Mechanics
     Location location_1(Oceanic, Flat, Farmlands);
     location_1.changeName("Judith");
-    strncpy(TextBox002Text, location_1.getName().c_str(), 128);
+    strncpy(LocationViewName, location_1.getName().c_str(), 128);
 
     
     Settlement settlement_1(&location_1);
@@ -48,12 +56,6 @@ int main(int, char**) {
 
     string TribePopStr = "Population: ";
     string TribeUnrestStr = "Unrest: ";
-
-
-    Rectangle scrollPanel = {8, 66, 160, 257};
-    Rectangle panelContentRec = {0, 0, 145, 600 };
-    Rectangle rect1 = {0, 0, 0, 0};
-    Vector2 scroll = {0, 0};
 
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
@@ -75,23 +77,34 @@ int main(int, char**) {
         TribeUnrestStr = ("Unrest: " + std::to_string(tribe.getUnrest()));        
         
         //      Location Info
-        if (WindowBox005Active) {
-            WindowBox005Active = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
-            if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, TextBox002Text, 128, TextBox003EditMode)) {
-                TextBox003EditMode = !TextBox003EditMode;
-                location_1.changeName(TextBox002Text);
+        if (LocationViewActive) {
+            LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
+            if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, LocationViewName, 128, LocationViewNameEditMode)) {
+                LocationViewNameEditMode = !LocationViewNameEditMode;
+                location_1.changeName(LocationViewName);
             }
-            GuiScrollPanel(scrollPanel, NULL, panelContentRec, &scroll, &rect1);
-            BeginScissorMode(rect1.x, rect1.y, rect1.width, rect1.height);
+
+            GuiScrollPanel(LocationViewScrollPanelBounds, 
+                           NULL, 
+                           LocationViewScrollPanelContent, 
+                           &LocationViewScrollPanelScroll, 
+                           &LocationViewScrollPanelView);
+
+            BeginScissorMode(LocationViewScrollPanelView.x, 
+                             LocationViewScrollPanelView.y, 
+                             LocationViewScrollPanelView.width, 
+                             LocationViewScrollPanelView.height);
+                             
                 //drawButtons(scrollPanel, scroll);
-                LabelButton004Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y,      140, 30 }, TribeUnrestStr.c_str());
-                LabelButton003Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y + 34, 140, 30 }, TribePopStr.c_str());
-                LabelButton002Pressed = GuiButton((Rectangle){ scrollPanel.x + 4, scrollPanel.y + scroll.y + 68, 140, 30 }, std::to_string(location_1.getClimate()).c_str());
+
+                LocationViewUnrestButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y, 140, 30 }, TribeUnrestStr.c_str());
+                LocationViewPopulationButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 34, 140, 30 }, TribePopStr.c_str());
+                LocationViewTerrainButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 68, 140, 30 }, std::to_string(location_1.getClimate()).c_str());
                 
             EndScissorMode();
         }
         else {
-            WindowBox005Active = GuiButton((Rectangle){ 4, 4, 240, 30 }, "Sample Text");
+            LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, "Sample Text");
         }
 
         /*//     Finish Drawing Frame     //*/
