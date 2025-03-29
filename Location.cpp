@@ -7,6 +7,7 @@ Location::Location(Climate c, Terrain t, Vegetation v) : m_climate(c), m_terrain
     m_provIds++;
     m_countryside = new Settlement(this);
     m_countryside->setRank(Camp);
+    m_countryside->changeName(m_name);
 }
 
 Location::~Location() {
@@ -18,8 +19,8 @@ void Location::update() {
     if(m_countryside) {
         m_countryside->update();
     }
-    for(Settlement* s : m_settlements) {
-        s->update();
+    for(int i = 0; i < getSettlementAmount(); i++) {
+        m_settlements.at(i)->update();
     }
 
     //Handle Location
@@ -40,6 +41,7 @@ void Location::changeName(std::string s)
 {
     if(!s.empty()) {
         m_name = s;
+        m_countryside->changeName(s);
     }
 }
 

@@ -28,6 +28,7 @@ public:
     // Relationship Getters
 
     Settlement* getSettlement(int id);
+    Settlement* getCountryside() { return m_countryside; }
 
     //Attribute Setters
 

@@ -46,7 +46,8 @@ std::map<Vegetation, string> vegetationNames = {
 //~~    Eventually these should be brought into their own file, but need to be here to build for now
 
 void drawButtons(Rectangle bounds, Vector2 scroll, Location *l) {
-    for (int i = 0; i < l->getSettlementAmount(); ++i ) {
+    GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y, 140, 18 }, l->getCountryside()->getName().c_str());
+    for (int i = 1; i < l->getSettlementAmount(); ++i ) {
         GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20, 140, 18 }, l->getSettlement(i)->getName().c_str());
     } 
 }
@@ -58,7 +59,7 @@ int main(int, char**) {
     bool LocationViewNameEditMode = false;
     char LocationViewName[128] = "SAMPLE TEXT";
 
-    Rectangle LocationViewScrollPanelBounds = {8, 66, 160, 257};
+    Rectangle LocationViewScrollPanelBounds = {8, 66, 160, 154};
     Rectangle LocationViewScrollPanelContent = {0, 0, 145, 600 };
     Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
     Vector2 LocationViewScrollPanelScroll = {0, 0};
@@ -78,12 +79,14 @@ int main(int, char**) {
     location_1.changeName("Eden");
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
 
+    location_1.getCountryside()->changeName("Howld on yall");
     
     Settlement settlement_1(&location_1);
     settlement_1.changeName("Skibidi");
 
     Settlement settlement_2(&location_1);
     settlement_2.changeName("Toilet");
+
     Settlement settlement_3(&location_1);
     settlement_3.changeName("Amogus");
 
@@ -162,7 +165,7 @@ int main(int, char**) {
             EndScissorMode();
         }
         else {
-            LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, "Sample Text");
+            LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, location_1.getName().c_str());
         }
 
         /*//     Finish Drawing Frame     //*/
