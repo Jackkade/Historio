@@ -70,6 +70,7 @@ void drawButtons(Rectangle bounds, Vector2 scroll, Location *l, Settlement* &sel
 
 }
 
+
 int main(int, char**) {
 
     /*~~    GUI Variables   ~~*/
@@ -88,6 +89,9 @@ int main(int, char**) {
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Historio");
     SetTargetFPS(60);
+    //ToggleFullscreen();
+    
+
     GuiLoadStyle("ancien.rgs");
     Font font = LoadFont("resources/fonts/pixantiqua.png");
     GuiSetFont(font);
@@ -114,9 +118,6 @@ int main(int, char**) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(BACKGROUND);
-
-        
-        
         
         /*//     Update Objects     //*/
         location_1.update();
@@ -195,6 +196,7 @@ int main(int, char**) {
         else {
             LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, location_1.getName().c_str());
         }
+
 
         /*//     Finish Drawing Frame     //*/
         EndDrawing();
