@@ -108,11 +108,13 @@ int main(int, char**) {
         LocationViewDisplayStrings[5] = ("Terrain: " + terrainNames.at(location_1.getTerrain()));
         LocationViewDisplayStrings[6] = ("Vegetation: " + vegetationNames.at(location_1.getVegetation()));
 
-        LocationViewDisplayStrings[7] = ("Development: " + std::to_string(location_1.getDevelopment()));
+        LocationViewDisplayStrings[7] = ("Development: " + std::to_string(location_1.getDevelopment() / 100) + "." + std::to_string(location_1.getDevelopment() % 100));
+        float LocationViewDevelopment = (float)location_1.getDevelopment() / 100;
         
-        LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(location_1.getCivilization()));
-        location_1.setCivilization(50);
-        float f = location_1.getCivilization();
+        LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(location_1.getCivilization() / 100) + "." + std::to_string(location_1.getCivilization() % 100));
+        location_1.setCivilization(1055);
+        
+        float LocationViewCivilization = (float)location_1.getCivilization() / 100;
         
         if (LocationViewActive) {
             LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
@@ -132,9 +134,9 @@ int main(int, char**) {
             GuiLabel((Rectangle){176, 146, 140, 30}, LocationViewDisplayStrings[6].c_str());
             
             GuiLabel((Rectangle){176, 160, 140, 30}, LocationViewDisplayStrings[7].c_str());
-            GuiProgressBar((Rectangle){172, 184, 144, 8}, NULL, NULL, &f, 0, 100);
+            GuiProgressBar((Rectangle){172, 184, 144, 8}, NULL, NULL, &LocationViewDevelopment, 0, 100);
             GuiLabel((Rectangle){176, 188, 140, 30}, LocationViewDisplayStrings[8].c_str());
-            GuiProgressBar((Rectangle){172, 212, 144, 8}, NULL, NULL, &f, 0, 100);
+            GuiProgressBar((Rectangle){172, 212, 144, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
             
             
             GuiScrollPanel(LocationViewScrollPanelBounds, 
