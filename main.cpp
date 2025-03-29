@@ -43,6 +43,14 @@ std::map<Vegetation, string> vegetationNames = {
     {Sparce, "Sparce"},
     {Barren, "Barren"}
 };
+std::map<Rank, string> rankNames = {
+    {Camp, "Camp"},
+    {Community, "Community"},
+    {Village, "Village"},
+    {City, "City"},
+    {Metropolis, "Metropolis"},
+    {Megalopolis, "Megalopolis"}
+};
 //~~    Eventually these should be brought into their own file, but need to be here to build for now
 
 void drawButtons(Rectangle bounds, Vector2 scroll, Location *l, Settlement* &select) {
@@ -74,7 +82,7 @@ int main(int, char**) {
     Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
     Vector2 LocationViewScrollPanelScroll = {0, 0};
 
-    string LocationViewDisplayStrings[10];
+    string LocationViewDisplayStrings[12];
     /*~~                    ~~*/
 
 
@@ -136,6 +144,9 @@ int main(int, char**) {
         float LocationViewCivilization = (float)location_1.getCivilization() / 100;
 
         LocationViewDisplayStrings[9] = ("Settlement: " + selectedSettlement->getName());
+        LocationViewDisplayStrings[10] = ("Rank: " + rankNames.at(selectedSettlement->getRank()));
+        LocationViewDisplayStrings[11] = ("Control: " + std::to_string(selectedSettlement->getControl() / 100) + "." + std::to_string(selectedSettlement->getControl() % 100));
+        float LocationViewSettlementControl = (float)selectedSettlement->getControl() / 100;
 
         
         if (LocationViewActive) {
@@ -150,18 +161,21 @@ int main(int, char**) {
             GuiLabel((Rectangle){176, 66, 140, 30}, LocationViewDisplayStrings[2].c_str());
             GuiLabel((Rectangle){176, 80, 140, 30}, LocationViewDisplayStrings[3].c_str());
             
-            GuiGroupBox((Rectangle){172, 118, 144, 102}, "Location Info");
+            GuiGroupBox((Rectangle){172, 118, 144, 106}, "Location Info");
             GuiLabel((Rectangle){176, 118, 140, 30}, LocationViewDisplayStrings[4].c_str());
             GuiLabel((Rectangle){176, 132, 140, 30}, LocationViewDisplayStrings[5].c_str());
             GuiLabel((Rectangle){176, 146, 140, 30}, LocationViewDisplayStrings[6].c_str());
             
             GuiLabel((Rectangle){176, 160, 140, 30}, LocationViewDisplayStrings[7].c_str());
-            GuiProgressBar((Rectangle){172, 184, 144, 8}, NULL, NULL, &LocationViewDevelopment, 0, 100);
+            GuiProgressBar((Rectangle){174, 184, 140, 8}, NULL, NULL, &LocationViewDevelopment, 0, 100);
             GuiLabel((Rectangle){176, 188, 140, 30}, LocationViewDisplayStrings[8].c_str());
-            GuiProgressBar((Rectangle){172, 212, 144, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
+            GuiProgressBar((Rectangle){174, 212, 140, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
             
-            GuiGroupBox((Rectangle){172, 230, 144, 90}, "Settlement Info");
-            GuiLabel((Rectangle){176, 230, 140, 30}, LocationViewDisplayStrings[9].c_str());
+            GuiGroupBox((Rectangle){172, 234, 144, 90}, "Settlement Info");
+            GuiLabel((Rectangle){176, 234, 140, 30}, LocationViewDisplayStrings[9].c_str());
+            GuiLabel((Rectangle){176, 248, 140, 30}, LocationViewDisplayStrings[10].c_str());
+            GuiLabel((Rectangle){176, 262, 140, 30}, LocationViewDisplayStrings[11].c_str());
+            GuiProgressBar((Rectangle){174, 286, 140, 8}, NULL, NULL, &LocationViewSettlementControl, 0, 100);
 
             GuiScrollPanel(LocationViewScrollPanelBounds, 
                            "Settlements", 

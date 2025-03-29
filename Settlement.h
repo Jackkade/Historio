@@ -21,7 +21,8 @@ public:
     
     /*~~~~~~*/
     int getID() { return m_id; }
-    int getPopulation(); 
+    int getPopulation();
+    unsigned int getControl() { return m_control; } 
     std::string getName() { return m_name; }
     Rank getRank();
     Location* getLocation() { return m_location; }
