@@ -81,6 +81,7 @@ int main(int, char**) {
     
     Settlement settlement_1(&location_1);
     settlement_1.changeName("Skibidi");
+    
     Pop tribe(100, settlement_1);
 
     while(!WindowShouldClose()) {

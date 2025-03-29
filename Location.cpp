@@ -81,5 +81,6 @@ int Location::getPopulation() {
 }
 
 void Location::addSettlement(Settlement* s) {
+    s->setID(m_settlements.size());
     m_settlements.push_back(s);
 }

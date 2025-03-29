@@ -13,14 +13,14 @@ public:
     ~Settlement();
 
 
-    
+    void setID(unsigned int i) { m_id = i; }    //WARNING!! IF YOU ARE USING THIS, YOU ARE DOING SOMETHING WRONG
     void addPop(Pop* p);
     void changeName(std::string s);
     
     void update();
     
     /*~~~~~~*/
-    
+    int getID() { return m_id; }
     int getPopulation(); 
     string getName() { return m_name; }
     Rank getRank();
@@ -30,7 +30,7 @@ public:
     void setRank(Rank r);
 
 private:
-    unsigned int m_id;
+    unsigned int m_id = 0;
     std::string m_name;
 
     Location* m_location = nullptr;
