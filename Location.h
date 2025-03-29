@@ -22,7 +22,8 @@ public:
     Climate getClimate() { return m_climate; }
     Terrain getTerrain() { return m_terrain; }
     Vegetation getVegetation() { return m_vegetation; }
-
+    unsigned int getCivilization() { return m_civilization; }
+    unsigned int getDevelopment() { return m_development; }
 
     //Attribute Setters
 
@@ -30,6 +31,8 @@ public:
     void changeTerrain(Terrain t);
     void changeVegetation(Vegetation v);
     void changeClimate(Climate c);
+
+    void setCivilization(int i) { m_civilization = i; }
 
     /*------------------*/
 

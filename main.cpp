@@ -56,14 +56,13 @@ int main(int, char**) {
     bool LocationViewActive = true;
     bool LocationViewNameEditMode = false;
     char LocationViewName[128] = "SAMPLE TEXT";
-    bool LocationViewUnrestButton = false;
-    bool LocationViewPopulationButton = false;
-    bool LocationViewTerrainButton = false;
 
     Rectangle LocationViewScrollPanelBounds = {8, 66, 160, 257};
     Rectangle LocationViewScrollPanelContent = {0, 0, 145, 600 };
     Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
     Vector2 LocationViewScrollPanelScroll = {0, 0};
+
+    string LocationViewDisplayStrings[9];
     /*~~                    ~~*/
 
 
@@ -83,10 +82,6 @@ int main(int, char**) {
     
     Pop tribe(100, settlement_1);
 
-
-    string TribePopStr = "Population: ";
-    string TribeUnrestStr = "Unrest: ";
-
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
@@ -102,18 +97,46 @@ int main(int, char**) {
         
         
         /*//     Draw User Interface (UI)     //*/
-        //      Pop (Tribe) Info
-        TribePopStr = ("Population: " + std::to_string(settlement_1.getPopulation()));
-        TribeUnrestStr = ("Unrest: " + std::to_string(tribe.getUnrest()));        
+        //      Pop Info
+        LocationViewDisplayStrings[0] = ("Population: " + std::to_string(location_1.getPopulation()));
+        LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(tribe.getUnrest()));        
+        LocationViewDisplayStrings[2] = ("Food: " + std::to_string(tribe.getFood()));        
+        LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(tribe.getSOL()));
         
         //      Location Info
+        LocationViewDisplayStrings[4] = ("Climate: " + climateNames.at(location_1.getClimate()));
+        LocationViewDisplayStrings[5] = ("Terrain: " + terrainNames.at(location_1.getTerrain()));
+        LocationViewDisplayStrings[6] = ("Vegetation: " + vegetationNames.at(location_1.getVegetation()));
+
+        LocationViewDisplayStrings[7] = ("Development: " + std::to_string(location_1.getDevelopment()));
+        
+        LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(location_1.getCivilization()));
+        location_1.setCivilization(50);
+        float f = location_1.getCivilization();
+        
         if (LocationViewActive) {
             LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
             if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, LocationViewName, 128, LocationViewNameEditMode)) {
                 LocationViewNameEditMode = !LocationViewNameEditMode;
                 location_1.changeName(LocationViewName);
             }
-
+            GuiGroupBox((Rectangle){172, 38, 144, 70}, "Population Info");
+            GuiLabel((Rectangle){176, 38, 140, 30}, LocationViewDisplayStrings[0].c_str());
+            GuiLabel((Rectangle){176, 52, 140, 30}, LocationViewDisplayStrings[1].c_str());
+            GuiLabel((Rectangle){176, 66, 140, 30}, LocationViewDisplayStrings[2].c_str());
+            GuiLabel((Rectangle){176, 80, 140, 30}, LocationViewDisplayStrings[3].c_str());
+            
+            GuiGroupBox((Rectangle){172, 118, 144, 102}, "Location Info");
+            GuiLabel((Rectangle){176, 118, 140, 30}, LocationViewDisplayStrings[4].c_str());
+            GuiLabel((Rectangle){176, 132, 140, 30}, LocationViewDisplayStrings[5].c_str());
+            GuiLabel((Rectangle){176, 146, 140, 30}, LocationViewDisplayStrings[6].c_str());
+            
+            GuiLabel((Rectangle){176, 160, 140, 30}, LocationViewDisplayStrings[7].c_str());
+            GuiProgressBar((Rectangle){172, 184, 144, 8}, NULL, NULL, &f, 0, 100);
+            GuiLabel((Rectangle){176, 188, 140, 30}, LocationViewDisplayStrings[8].c_str());
+            GuiProgressBar((Rectangle){172, 212, 144, 8}, NULL, NULL, &f, 0, 100);
+            
+            
             GuiScrollPanel(LocationViewScrollPanelBounds, 
                            NULL, 
                            LocationViewScrollPanelContent, 
@@ -126,10 +149,6 @@ int main(int, char**) {
                              LocationViewScrollPanelView.height);
                              
                 //drawButtons(scrollPanel, scroll);
-
-                LocationViewUnrestButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y, 140, 30 }, TribeUnrestStr.c_str());
-                LocationViewPopulationButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 34, 140, 30 }, TribePopStr.c_str());
-                LocationViewTerrainButton = GuiButton((Rectangle){ LocationViewScrollPanelBounds.x + 4, LocationViewScrollPanelBounds.y + LocationViewScrollPanelScroll.y + 68, 140, 30 }, climateNames[location_1.getClimate()].c_str());
                 
             EndScissorMode();
         }

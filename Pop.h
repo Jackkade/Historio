@@ -30,6 +30,7 @@ public:
     unsigned int getPopulation() { return m_population; }
     int getUnrest() { return m_unrest; }
     unsigned int getSOL() { return m_sol; }
+    unsigned int getFood() { return m_food; }
     
 private:
     // Internal Attributes of pops, no need to reference others.
