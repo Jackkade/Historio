@@ -1,6 +1,6 @@
 #ifndef SETTLEMENT_H
 #define SETTLEMENT_H
-
+#include <string>
 #include <vector>
 #include "Types.h"
 #include "Ranks.h"
@@ -22,7 +22,7 @@ public:
     /*~~~~~~*/
     int getID() { return m_id; }
     int getPopulation(); 
-    string getName() { return m_name; }
+    std::string getName() { return m_name; }
     Rank getRank();
     Location* getLocation() { return m_location; }
 

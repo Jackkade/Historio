@@ -47,7 +47,7 @@ std::map<Vegetation, string> vegetationNames = {
 
 void drawButtons(Rectangle bounds, Vector2 scroll, Location *l) {
     for (int i = 0; i < l->getSettlementAmount(); ++i ) {
-        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20, 140, 18 }, std::to_string(i).c_str());
+        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20, 140, 18 }, l->getSettlement(i)->getName().c_str());
     } 
 }
 
@@ -81,7 +81,12 @@ int main(int, char**) {
     
     Settlement settlement_1(&location_1);
     settlement_1.changeName("Skibidi");
-    
+
+    Settlement settlement_2(&location_1);
+    settlement_2.changeName("Toilet");
+    Settlement settlement_3(&location_1);
+    settlement_3.changeName("Amogus");
+
     Pop tribe(100, settlement_1);
 
     while(!WindowShouldClose()) {

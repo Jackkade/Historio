@@ -31,7 +31,13 @@ void Location::update() {
     }
 }
 
-void Location::changeName(std::string s) {
+Settlement *Location::getSettlement(int id)
+{
+    return m_settlements.at(id);
+}
+
+void Location::changeName(std::string s)
+{
     if(!s.empty()) {
         m_name = s;
     }

@@ -25,6 +25,10 @@ public:
     unsigned int getCivilization() { return m_civilization; }
     unsigned int getDevelopment() { return m_development; }
 
+    // Relationship Getters
+
+    Settlement* getSettlement(int id);
+
     //Attribute Setters
 
     void changeName(std::string s);
