@@ -44,9 +44,10 @@ std::map<Vegetation, string> vegetationNames = {
     {Barren, "Barren"}
 };
 //~~    Eventually these should be brought into their own file, but need to be here to build for now
-void drawButtons(Rectangle bounds, Vector2 scroll) {
-    for (int i = 0; i < 100; i++ ) {
-        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 30, 120, 24 }, "woasw");
+
+void drawButtons(Rectangle bounds, Vector2 scroll, Location *l) {
+    for (int i = 0; i < l->getSettlementAmount(); ++i ) {
+        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20, 140, 18 }, std::to_string(i).c_str());
     } 
 }
 
@@ -79,7 +80,7 @@ int main(int, char**) {
 
     
     Settlement settlement_1(&location_1);
-    
+    settlement_1.changeName("Skibidi");
     Pop tribe(100, settlement_1);
 
     while(!WindowShouldClose()) {
@@ -150,7 +151,7 @@ int main(int, char**) {
                              LocationViewScrollPanelView.width, 
                              LocationViewScrollPanelView.height);
                              
-                //drawButtons(scrollPanel, scroll);
+            drawButtons(LocationViewScrollPanelBounds, LocationViewScrollPanelScroll, &location_1);
                 
             EndScissorMode();
         }

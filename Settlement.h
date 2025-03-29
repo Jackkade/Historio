@@ -13,22 +13,26 @@ public:
     ~Settlement();
 
 
-    Location* getLocation() { return m_location; }
-
+    
     void addPop(Pop* p);
-
+    void changeName(std::string s);
+    
     void update();
-
+    
     /*~~~~~~*/
-
+    
     int getPopulation(); 
-
+    string getName() { return m_name; }
     Rank getRank();
+    Location* getLocation() { return m_location; }
 
     //Setters
     void setRank(Rank r);
 
 private:
+    unsigned int m_id;
+    std::string m_name;
+
     Location* m_location = nullptr;
     std::vector<Pop*> m_pops;
     Rank m_rank = Community;

@@ -14,6 +14,12 @@ void Settlement::addPop(Pop *p)
     m_pops.push_back(p);
 }
 
+void Settlement::changeName(std::string s) {
+    if(!s.empty()) {
+        m_name = s;
+    }
+}
+
 void Settlement::update() {
 
     if(m_control > 10000) {
