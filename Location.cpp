@@ -47,6 +47,29 @@ void Location::changeClimate(Climate c) {
     m_climate = c;
 }
 
+void Location::setCivilization(int i) {
+    if (i > 10000) {
+        m_civilization = 10000;
+    }
+    else if ( i < 0 ) {
+        m_civilization = 0;
+    }
+    else {
+        m_civilization = i;
+    }
+}
+
+void Location::setDevelopment(int i) {
+    if (i > 10000) {
+        m_development = 10000;
+    }
+    else if ( i < 0 ) {
+        m_development = 0;
+    }
+    else {
+        m_development = i;
+    }
+}
 int Location::getPopulation() {
     int rt = m_countryside->getPopulation();
 

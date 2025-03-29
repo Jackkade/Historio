@@ -32,7 +32,8 @@ public:
     void changeVegetation(Vegetation v);
     void changeClimate(Climate c);
 
-    void setCivilization(int i) { m_civilization = i; }
+    void setCivilization(int i);
+    void setDevelopment(int i);
 
     /*------------------*/
 
