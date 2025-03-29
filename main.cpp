@@ -45,11 +45,21 @@ std::map<Vegetation, string> vegetationNames = {
 };
 //~~    Eventually these should be brought into their own file, but need to be here to build for now
 
-void drawButtons(Rectangle bounds, Vector2 scroll, Location *l) {
-    GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y, 140, 18 }, l->getCountryside()->getName().c_str());
+void drawButtons(Rectangle bounds, Vector2 scroll, Location *l, Settlement* &select) {
+    bool selected = false;
+    selected = GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + 26, 140, 18 }, l->getCountryside()->getName().c_str());
+    if(selected) {
+        select = l->getCountryside();
+        selected = false;
+    }
     for (int i = 1; i < l->getSettlementAmount(); ++i ) {
-        GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20, 140, 18 }, l->getSettlement(i)->getName().c_str());
-    } 
+        selected = GuiButton((Rectangle){ bounds.x + 4, bounds.y + scroll.y + i * 20 + 26, 140, 18 }, l->getSettlement(i)->getName().c_str());
+        if(selected) {
+            select = l->getSettlement(i);
+        }
+        selected = false;
+    }
+
 }
 
 int main(int, char**) {
@@ -64,7 +74,7 @@ int main(int, char**) {
     Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
     Vector2 LocationViewScrollPanelScroll = {0, 0};
 
-    string LocationViewDisplayStrings[9];
+    string LocationViewDisplayStrings[10];
     /*~~                    ~~*/
 
 
@@ -89,6 +99,8 @@ int main(int, char**) {
     settlement_3.changeName("Amogus");
 
     Pop tribe(100, settlement_1);
+
+    Settlement* selectedSettlement = &settlement_1;
 
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
@@ -121,8 +133,10 @@ int main(int, char**) {
         
         LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(location_1.getCivilization() / 100) + "." + std::to_string(location_1.getCivilization() % 100));
         location_1.setCivilization(1055);
-        
         float LocationViewCivilization = (float)location_1.getCivilization() / 100;
+
+        LocationViewDisplayStrings[9] = ("Settlement: " + selectedSettlement->getName());
+
         
         if (LocationViewActive) {
             LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
@@ -146,9 +160,11 @@ int main(int, char**) {
             GuiLabel((Rectangle){176, 188, 140, 30}, LocationViewDisplayStrings[8].c_str());
             GuiProgressBar((Rectangle){172, 212, 144, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
             
-            
+            GuiGroupBox((Rectangle){172, 230, 144, 90}, "Settlement Info");
+            GuiLabel((Rectangle){176, 230, 140, 30}, LocationViewDisplayStrings[9].c_str());
+
             GuiScrollPanel(LocationViewScrollPanelBounds, 
-                           NULL, 
+                           "Settlements", 
                            LocationViewScrollPanelContent, 
                            &LocationViewScrollPanelScroll, 
                            &LocationViewScrollPanelView);
@@ -158,7 +174,7 @@ int main(int, char**) {
                              LocationViewScrollPanelView.width, 
                              LocationViewScrollPanelView.height);
                              
-            drawButtons(LocationViewScrollPanelBounds, LocationViewScrollPanelScroll, &location_1);
+            drawButtons(LocationViewScrollPanelBounds, LocationViewScrollPanelScroll, &location_1, selectedSettlement);
                 
             EndScissorMode();
         }
