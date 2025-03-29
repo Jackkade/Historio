@@ -74,7 +74,7 @@ int main(int, char**) {
 
     //  Game Mechanics
     Location location_1(Oceanic, Flat, Farmlands);
-    location_1.changeName("Judith");
+    location_1.changeName("Eden");
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
 
     
