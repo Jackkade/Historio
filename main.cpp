@@ -90,13 +90,13 @@ int main(int, char**) {
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
     
     Settlement settlement_1(&location_1);
-    settlement_1.changeName("Skibidi");
+    settlement_1.changeName("Adam");
 
     Settlement settlement_2(&location_1);
-    settlement_2.changeName("Toilet");
+    settlement_2.changeName("Eve");
 
     Settlement settlement_3(&location_1);
-    settlement_3.changeName("Amogus");
+    settlement_3.changeName("Seth");
 
     Pop tribe(100, settlement_1);
 
