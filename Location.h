@@ -40,6 +40,7 @@ public:
     //Relationship getters
 
     int getPopulation(); 
+    int getSettlementAmount() { return m_settlements.size(); }
 
     //Relationship Setters
 
