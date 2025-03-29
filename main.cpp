@@ -78,8 +78,6 @@ int main(int, char**) {
     Location location_1(Oceanic, Flat, Farmlands);
     location_1.changeName("Eden");
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
-
-    location_1.getCountryside()->changeName("Howld on yall");
     
     Settlement settlement_1(&location_1);
     settlement_1.changeName("Skibidi");
