@@ -19,7 +19,7 @@ public:
     
     void update();
     
-    /*~~~~~~*/
+    //Getters
     int getID() { return m_id; }
     int getPopulation();
     unsigned int getFood() { return m_food; }
@@ -27,7 +27,8 @@ public:
     std::string getName() { return m_name; }
     Rank getRank();
     Location* getLocation() { return m_location; }
-
+    int getUnrest();
+    unsigned int getSOL();
     //Setters
     void setRank(Rank r);
     void addFood(int a);

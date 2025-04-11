@@ -44,6 +44,28 @@ Rank Settlement::getRank() {
     return m_rank;
 }
 
+int Settlement::getUnrest() {
+    int rt = 0;
+    int i = 0;
+    for (Pop* p : m_pops) {
+        rt += p->getUnrest();    
+        i++;
+    }
+
+    return rt / i; //Return average unrest
+}
+
+unsigned int Settlement::getSOL() {
+    int rt = 0;
+    int i = 0;
+    for (Pop* p : m_pops) {
+        rt += p->getSOL();    
+        i++;
+    }
+
+    return rt / i; //Return average unrest
+}
+
 void Settlement::setRank(Rank r) {
     m_rank = r;
 }

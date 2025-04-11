@@ -131,7 +131,7 @@ int main(int, char**) {
         //      Pop Info
         LocationViewDisplayStrings[0] = ("Population: " + std::to_string(selectedLocation->getPopulation()));
         LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(tribe.getUnrest()));        
-        LocationViewDisplayStrings[2] = ("Food: " + std::to_string(tribe.getFood()));        
+        LocationViewDisplayStrings[2] = ("Food: " + std::to_string(selectedSettlement->getFood()));        
         LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(tribe.getSOL()));
         
         //      Location Info
