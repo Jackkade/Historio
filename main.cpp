@@ -112,10 +112,10 @@ int main(int, char**) {
 
     Pop tribe(100, settlement_1);
 
-    Settlement* selectedSettlement = &settlement_1;
-
+    
     Location* selectedLocation = &location_1;
-
+    Settlement* selectedSettlement = location_1.getCountryside();
+    
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();

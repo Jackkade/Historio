@@ -47,3 +47,10 @@ Rank Settlement::getRank() {
 void Settlement::setRank(Rank r) {
     m_rank = r;
 }
+
+void Settlement::addFood(int a) {
+    m_food += a;
+    if (m_food < 0) {
+        m_food = 0;
+    }
+}

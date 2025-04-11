@@ -23,21 +23,19 @@ public:
     void addPopulation(int a);
     void addUnrest(int a);
     void addSOL(int a);
-    void addFood(int a);
     void setSettlement(Settlement& l);
 
     //Getters
     unsigned int getPopulation() { return m_population; }
     int getUnrest() { return m_unrest; }
     unsigned int getSOL() { return m_sol; }
-    unsigned int getFood() { return m_food; }
+    
     
 private:
     // Internal Attributes of pops, no need to reference others.
     unsigned int m_population = 1;  //Population
     int m_unrest = 0;               //Average unrest in Pop
     unsigned int m_sol = 0;         //Standard of Living
-    unsigned int m_food = 0;        //Percent of Food Availability
 
     // External Attributes, references to other objects
                                     //Relgion

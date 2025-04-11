@@ -56,13 +56,3 @@ void Pop::addSOL(int a) {
         m_sol = 100;
     }
 }
-
-void Pop::addFood(int a) {
-    m_sol += a;
-    if (m_food < 0) {
-        m_food = 0;
-    }
-    else if (m_food > 100) {
-        m_food = 100;
-    }
-}
