@@ -147,6 +147,11 @@ int main(int, char**) {
         float LocationViewCivilization = (float)selectedLocation->getCivilization() / 100;
 
         LocationViewDisplayStrings[12] = ("Total Population: " + std::to_string(selectedLocation->getPopulation()));
+        LocationViewDisplayStrings[13] = ("Total Food: " + std::to_string(selectedLocation->getFood()));
+        LocationViewDisplayStrings[14] = ("Average SOL: " + std::to_string(selectedLocation->getSOL()));
+        LocationViewDisplayStrings[15] = ("Average Unrest: " + std::to_string(selectedLocation->getUnrest()));
+        LocationViewDisplayStrings[16] = ("Average Control: " + std::to_string(selectedLocation->getControl() / 100) + "." + std::to_string(selectedLocation->getControl() % 100));
+        float LocationViewLocationAvgControl = (float)selectedLocation->getControl() / 100;
 
         //      Settlement Info
         LocationViewDisplayStrings[9] = ("Settlement: " + selectedSettlement->getName());
@@ -172,6 +177,11 @@ int main(int, char**) {
             GuiProgressBar((Rectangle){174, 132, 140, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
 
             GuiLabel((Rectangle){176, 136, 140, 30}, LocationViewDisplayStrings[12].c_str());
+            GuiLabel((Rectangle){176, 150, 140, 30}, LocationViewDisplayStrings[13].c_str());
+            GuiLabel((Rectangle){176, 164, 140, 30}, LocationViewDisplayStrings[14].c_str());
+            GuiLabel((Rectangle){176, 178, 140, 30}, LocationViewDisplayStrings[15].c_str());
+            GuiLabel((Rectangle){176, 192, 140, 30}, LocationViewDisplayStrings[16].c_str());
+            GuiProgressBar((Rectangle){174, 216, 140, 8}, NULL, NULL, &LocationViewLocationAvgControl, 0, 100);
 
             /*
             GuiGroupBox((Rectangle){172, 118, 252, 106}, "Settlement Info");

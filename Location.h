@@ -48,6 +48,7 @@ public:
     int getUnrest();
     unsigned int getSOL();
     unsigned int getFood();
+    unsigned int getControl();
     int getSettlementAmount() { return m_settlements.size(); }
 
     //Relationship Setters
