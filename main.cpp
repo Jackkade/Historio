@@ -131,7 +131,6 @@ int main(int, char**) {
         //      Pop Info
         LocationViewDisplayStrings[0] = ("Population: " + std::to_string(selectedSettlement->getPopulation()));
         LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(selectedSettlement->getUnrest()));        
-        LocationViewDisplayStrings[2] = ("Food: " + std::to_string(selectedSettlement->getFood()));        
         LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(selectedSettlement->getSOL()));
         
         //      Location Info
@@ -158,10 +157,12 @@ int main(int, char**) {
         LocationViewDisplayStrings[10] = ("Rank: " + rankNames.at(selectedSettlement->getRank()));
         LocationViewDisplayStrings[11] = ("Control: " + std::to_string(selectedSettlement->getControl() / 100) + "." + std::to_string(selectedSettlement->getControl() % 100));
         float LocationViewSettlementControl = (float)selectedSettlement->getControl() / 100;
+        LocationViewDisplayStrings[2] = ("Average Unrest: " + std::to_string(selectedSettlement->getUnrest()));
+        LocationViewDisplayStrings[17] = ("Average SOL: " + std::to_string(selectedSettlement->getSOL()));
 
         
         if (LocationViewActive) {
-            LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 424, 404 }, "");
+            LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 424, 454 }, "");
             if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, LocationViewName, 128, LocationViewNameEditMode)) {
                 LocationViewNameEditMode = !LocationViewNameEditMode;
                 selectedLocation->changeName(LocationViewName);
@@ -183,23 +184,22 @@ int main(int, char**) {
             GuiLabel((Rectangle){176, 192, 140, 30}, LocationViewDisplayStrings[16].c_str());
             GuiProgressBar((Rectangle){174, 216, 140, 8}, NULL, NULL, &LocationViewLocationAvgControl, 0, 100);
 
-            /*
-            GuiGroupBox((Rectangle){172, 118, 252, 106}, "Settlement Info");
-            GuiLabel((Rectangle){176, 118, 140, 30}, LocationViewDisplayStrings[4].c_str());
-            GuiLabel((Rectangle){176, 132, 140, 30}, LocationViewDisplayStrings[5].c_str());
-            GuiLabel((Rectangle){176, 146, 140, 30}, LocationViewDisplayStrings[6].c_str());
             
-            GuiLabel((Rectangle){176, 160, 140, 30}, LocationViewDisplayStrings[7].c_str());
-            GuiProgressBar((Rectangle){174, 184, 140, 8}, NULL, NULL, &LocationViewDevelopment, 0, 100);
-            GuiLabel((Rectangle){176, 188, 140, 30}, LocationViewDisplayStrings[8].c_str());
-            GuiProgressBar((Rectangle){174, 212, 140, 8}, NULL, NULL, &LocationViewCivilization, 0, 100);
+            float tempOffset = 130;
+            GuiGroupBox((Rectangle){172, 118 + tempOffset, 252, 106}, "Settlement Info");
+            GuiLabel((Rectangle){176, 118 + tempOffset, 140, 30}, LocationViewDisplayStrings[9].c_str());
+            GuiLabel((Rectangle){176, 132 + tempOffset, 140, 30}, LocationViewDisplayStrings[10].c_str());
+            GuiLabel((Rectangle){176, 146 + tempOffset, 140, 30}, LocationViewDisplayStrings[11].c_str());
+            GuiProgressBar((Rectangle){174, 170 + tempOffset, 140, 8}, NULL, NULL, &LocationViewSettlementControl, 0, 100);
+            GuiLabel((Rectangle){176, 174 + tempOffset, 140, 30}, LocationViewDisplayStrings[2].c_str());
+            GuiLabel((Rectangle){176, 188 + tempOffset, 140, 30}, LocationViewDisplayStrings[17].c_str());
             
-            GuiGroupBox((Rectangle){172, 234, 252, 90}, "Population Info");
-            GuiLabel((Rectangle){176, 234, 140, 30}, LocationViewDisplayStrings[9].c_str());
-            GuiLabel((Rectangle){176, 248, 140, 30}, LocationViewDisplayStrings[10].c_str());
-            GuiLabel((Rectangle){176, 262, 140, 30}, LocationViewDisplayStrings[11].c_str());
-            GuiProgressBar((Rectangle){174, 286, 140, 8}, NULL, NULL, &LocationViewSettlementControl, 0, 100);
-            */
+            
+            GuiGroupBox((Rectangle){172, 234 + tempOffset, 252, 90}, "Population Info");
+            GuiLabel((Rectangle){176, 234 + tempOffset, 140, 30}, LocationViewDisplayStrings[0].c_str());
+            GuiLabel((Rectangle){176, 248 + tempOffset, 140, 30}, LocationViewDisplayStrings[1].c_str());
+            GuiLabel((Rectangle){176, 262 + tempOffset, 140, 30}, LocationViewDisplayStrings[3].c_str());
+            
             GuiScrollPanel(LocationViewScrollPanelBounds, 
                            "Settlements", 
                            LocationViewScrollPanelContent, 
