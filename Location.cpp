@@ -88,6 +88,51 @@ int Location::getPopulation() {
     return rt;
 }
 
+int Location::getUnrest()
+{
+    int rt = m_countryside->getUnrest();
+    int i = 0;
+    for(Settlement* s : m_settlements) {
+        rt += s->getUnrest();
+        i++;
+    }
+
+    if(i > 0) {
+        return rt / i; //Return average Unrest
+    }
+    else {
+        return 0;
+    }
+}
+
+unsigned int Location::getSOL()
+{
+    int rt = m_countryside->getSOL();
+    int i = 0;
+    for(Settlement* s : m_settlements) {
+        rt += s->getSOL();
+        i++;
+    }
+
+    if(i > 0) {
+        return rt / i; //Return average SOL
+    }
+    else {
+        return 0;
+    }
+}
+
+unsigned int Location::getFood()
+{
+    int rt = m_countryside->getFood();
+
+    for(Settlement* s : m_settlements) {
+        rt += s->getFood();
+    }
+
+    return rt;
+}
+
 void Location::addSettlement(Settlement* s) {
     s->setID(m_settlements.size());
     m_settlements.push_back(s);
