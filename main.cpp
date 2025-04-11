@@ -114,6 +114,8 @@ int main(int, char**) {
 
     Settlement* selectedSettlement = &settlement_1;
 
+    Location* selectedLocation = &location_1;
+
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
@@ -127,22 +129,22 @@ int main(int, char**) {
         
         /*//     Draw User Interface (UI)     //*/
         //      Pop Info
-        LocationViewDisplayStrings[0] = ("Population: " + std::to_string(location_1.getPopulation()));
+        LocationViewDisplayStrings[0] = ("Population: " + std::to_string(selectedLocation->getPopulation()));
         LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(tribe.getUnrest()));        
         LocationViewDisplayStrings[2] = ("Food: " + std::to_string(tribe.getFood()));        
         LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(tribe.getSOL()));
         
         //      Location Info
-        LocationViewDisplayStrings[4] = ("Climate: " + climateNames.at(location_1.getClimate()));
-        LocationViewDisplayStrings[5] = ("Terrain: " + terrainNames.at(location_1.getTerrain()));
-        LocationViewDisplayStrings[6] = ("Vegetation: " + vegetationNames.at(location_1.getVegetation()));
+        LocationViewDisplayStrings[4] = ("Climate: " + climateNames.at(selectedLocation->getClimate()));
+        LocationViewDisplayStrings[5] = ("Terrain: " + terrainNames.at(selectedLocation->getTerrain()));
+        LocationViewDisplayStrings[6] = ("Vegetation: " + vegetationNames.at(selectedLocation->getVegetation()));
 
-        LocationViewDisplayStrings[7] = ("Development: " + std::to_string(location_1.getDevelopment() / 100) + "." + std::to_string(location_1.getDevelopment() % 100));
-        float LocationViewDevelopment = (float)location_1.getDevelopment() / 100;
+        LocationViewDisplayStrings[7] = ("Development: " + std::to_string(selectedLocation->getDevelopment() / 100) + "." + std::to_string(selectedLocation->getDevelopment() % 100));
+        float LocationViewDevelopment = (float)selectedLocation->getDevelopment() / 100;
         
-        LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(location_1.getCivilization() / 100) + "." + std::to_string(location_1.getCivilization() % 100));
-        location_1.setCivilization(1055);
-        float LocationViewCivilization = (float)location_1.getCivilization() / 100;
+        LocationViewDisplayStrings[8] = ("Civilization: " + std::to_string(selectedLocation->getCivilization() / 100) + "." + std::to_string(selectedLocation->getCivilization() % 100));
+        selectedLocation->setCivilization(1055);
+        float LocationViewCivilization = (float)selectedLocation->getCivilization() / 100;
 
         LocationViewDisplayStrings[9] = ("Settlement: " + selectedSettlement->getName());
         LocationViewDisplayStrings[10] = ("Rank: " + rankNames.at(selectedSettlement->getRank()));
@@ -154,7 +156,7 @@ int main(int, char**) {
             LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 420, 320 }, "");
             if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, LocationViewName, 128, LocationViewNameEditMode)) {
                 LocationViewNameEditMode = !LocationViewNameEditMode;
-                location_1.changeName(LocationViewName);
+                selectedLocation->changeName(LocationViewName);
             }
             GuiGroupBox((Rectangle){172, 38, 144, 70}, "Population Info");
             GuiLabel((Rectangle){176, 38, 140, 30}, LocationViewDisplayStrings[0].c_str());
@@ -189,12 +191,12 @@ int main(int, char**) {
                              LocationViewScrollPanelView.width, 
                              LocationViewScrollPanelView.height);
                              
-            drawButtons(LocationViewScrollPanelBounds, LocationViewScrollPanelScroll, &location_1, selectedSettlement);
+            drawButtons(LocationViewScrollPanelBounds, LocationViewScrollPanelScroll, selectedLocation, selectedSettlement);
                 
             EndScissorMode();
         }
         else {
-            LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, location_1.getName().c_str());
+            LocationViewActive = GuiButton((Rectangle){ 4, 4, 240, 30 }, selectedLocation->getName().c_str());
         }
 
 
