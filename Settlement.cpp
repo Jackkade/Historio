@@ -52,7 +52,12 @@ int Settlement::getUnrest() {
         i++;
     }
 
-    return rt / i; //Return average unrest
+    if(i > 0) {
+        return rt / i; //Return average unrest
+    }
+    else {
+        return 0;
+    }
 }
 
 unsigned int Settlement::getSOL() {
@@ -63,7 +68,12 @@ unsigned int Settlement::getSOL() {
         i++;
     }
 
-    return rt / i; //Return average unrest
+    if(i > 0) {
+        return rt / i; //Return average SOL
+    }
+    else {
+        return 0;
+    }
 }
 
 void Settlement::setRank(Rank r) {

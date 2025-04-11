@@ -132,7 +132,7 @@ int main(int, char**) {
         LocationViewDisplayStrings[0] = ("Population: " + std::to_string(selectedLocation->getPopulation()));
         LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(tribe.getUnrest()));        
         LocationViewDisplayStrings[2] = ("Food: " + std::to_string(selectedSettlement->getFood()));        
-        LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(tribe.getSOL()));
+        LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(selectedSettlement->getSOL()));
         
         //      Location Info
         LocationViewDisplayStrings[4] = ("Climate: " + climateNames.at(selectedLocation->getClimate()));
