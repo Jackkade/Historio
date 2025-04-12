@@ -119,13 +119,18 @@ int main(int, char**) {
     while(!WindowShouldClose()) {
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
-        ClearBackground(BACKGROUND);
+        ClearBackground(BLACK);
         
+
         /*//     Update Objects     //*/
         location_1.update();
         
-        
-        
+        /*//    Draw Map    //*/
+        for(int i = 0; i < 100; i++) {
+            for(int j = 0; j < 100; j++) {
+                DrawRectangle(i * 10, j * 10, 10, 10, (Color){(unsigned char)((i*50) %255), (unsigned char)((j*i) %255), (unsigned char)((j*50) %255), 255});
+            }
+        }        
         
         /*//     Draw User Interface (UI)     //*/
         //      Pop Info

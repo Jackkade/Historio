@@ -95,7 +95,7 @@ int Location::getUnrest()
         rt += s->getUnrest();
     }
 
-    return rt / getSettlementAmount();
+    return rt / (getSettlementAmount() + 1);
 
 }
 
@@ -106,7 +106,7 @@ unsigned int Location::getSOL()
         rt += s->getSOL();
     }
 
-    return rt / getSettlementAmount();
+    return rt / (getSettlementAmount() + 1);
 
 }
 
@@ -129,7 +129,7 @@ unsigned int Location::getControl()
         rt += s->getControl();
     }
 
-    return rt / getSettlementAmount(); //return average control
+    return rt / (getSettlementAmount() + 1); //return average control
 }
 
 void Location::addSettlement(Settlement* s) {
