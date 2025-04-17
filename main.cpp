@@ -7,6 +7,7 @@ using std::string;
 #include <raylib.h>
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
+#include "raymath.h"
 
 #define BACKGROUND      (Color){ 30, 30, 45, 255 }          // Dark Blue
 #define FOREGROUND      (Color){ 242, 222, 162, 255 }       // Light Yellow
@@ -88,6 +89,10 @@ int main(int, char**) {
 
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Historio");
+
+    Camera2D camera = { 0 };
+    camera.zoom = 1.0f;
+
     SetTargetFPS(60);
     //ToggleFullscreen();
     
@@ -125,12 +130,49 @@ int main(int, char**) {
         /*//     Update Objects     //*/
         location_1.update();
         
+
+
+
         /*//    Draw Map    //*/
-        for(int i = 0; i < 100; i++) {
-            for(int j = 0; j < 100; j++) {
-                DrawRectangle(i * 10, j * 10, 10, 10, (Color){(unsigned char)((i*50) %255), (unsigned char)((j*i) %255), (unsigned char)((j*50) %255), 255});
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            Vector2 delta = GetMouseDelta();
+            delta = Vector2Scale(delta, -1.0f/camera.zoom);
+            camera.target = Vector2Add(camera.target, delta);
+        }
+        // Zoom based on mouse wheel
+        float wheel = GetMouseWheelMove();
+        if (wheel != 0)
+        {
+            // Get the world point that is under the mouse
+            Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
+
+            // Set the offset to where the mouse is
+            camera.offset = GetMousePosition();
+            
+            // Set the target to match, so that the camera maps the world space point 
+            // under the cursor to the screen space point under the cursor at any zoom
+            camera.target = mouseWorldPos;
+
+            // Zoom increment
+            // Uses log scaling to provide consistent zoom speed
+            float scale = 0.2f*wheel;
+            camera.zoom = Clamp(expf(logf(camera.zoom)+scale), 0.125f, 64.0f);
+
+            mouseWorldPos = camera.target;
+            camera.offset = Vector2Add(camera.offset, mouseWorldPos);
+            camera.target = {0,0};
+
+        }
+
+        BeginMode2D(camera);
+        for(int i = 0; i < 250; i++) {
+            for(int j = 0; j < 250; j++) {
+                DrawRectangle(i*4, j*4, 4, 4, (Color){(unsigned char)(i %255), (unsigned char)((i+j)/2 %255), (unsigned char)(j %255), 255});
             }
         }        
+        EndMode2D();
         
         /*//     Draw User Interface (UI)     //*/
         //      Pop Info
