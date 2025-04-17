@@ -14,8 +14,8 @@
                 "PLATFORM_DESKTOP"
             ],
             "compilerPath": "C:/raylib/w64devkit/bin/g++.exe",
-            "cStandard": "c17",
-            "cppStandard": "gnu++17",
+            "cStandard": "c23",
+            "cppStandard": "gnu++23",
             "intelliSenseMode": "gcc-x64",
             "configurationProvider": "ms-vscode.cmake-tools"
         }
