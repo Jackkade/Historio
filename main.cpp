@@ -122,6 +122,58 @@ int main(int, char**) {
     Settlement* selectedSettlement = location_1.getCountryside();
     
     while(!WindowShouldClose()) {
+
+        
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            Vector2 delta = GetMouseDelta();
+            delta = Vector2Scale(delta, -1.0f/camera.zoom);
+            camera.target = Vector2Add(camera.target, delta);
+            
+        }
+        // Zoom based on mouse wheel
+        float wheel = GetMouseWheelMove();
+        if (wheel != 0)
+        {
+            Vector2 mousePos = GetMousePosition();
+            // Get the world point that is under the mouse
+            Vector2 mouseWorldPos = GetScreenToWorld2D(mousePos, camera);
+
+
+            // Zoom increment
+            // Uses log scaling to provide consistent zoom speed
+            float scale = 0.2f*wheel;
+            camera.zoom = Clamp(expf(logf(camera.zoom)+scale), 0.125f, 64.0f);
+
+            // Recalculate the camera's target after zooming
+            // Get the world position under the mouse again after zoom change
+            Vector2 mouseWorldPosAfterZoom = GetScreenToWorld2D(mousePos, camera);
+
+            // Calculate the offset change caused by zooming
+            Vector2 offsetChange = Vector2Subtract(mouseWorldPos, mouseWorldPosAfterZoom);
+
+            // Adjust the camera target to keep the same world point under the mouse
+            camera.target = Vector2Add(camera.target, offsetChange);
+        }
+        
+        float halfScreenWidth = GetScreenWidth() * 0.5f / camera.zoom;
+        float halfScreenHeight = GetScreenHeight() * 0.5f / camera.zoom;
+
+        Rectangle worldBounds = { -500, -500, 1000, 1000 };
+
+        Vector2 min = {
+            worldBounds.x + halfScreenWidth,
+            worldBounds.y + halfScreenHeight
+        };
+
+        Vector2 max = {
+            worldBounds.x + worldBounds.width - halfScreenWidth,
+            worldBounds.y + worldBounds.height - halfScreenHeight
+        };
+
+        camera.target.x = Clamp(camera.target.x, min.x, max.x);
+        camera.target.y = Clamp(camera.target.y, min.y, max.y);
+        
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(BLACK);
@@ -135,41 +187,12 @@ int main(int, char**) {
 
         /*//    Draw Map    //*/
 
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            Vector2 delta = GetMouseDelta();
-            delta = Vector2Scale(delta, -1.0f/camera.zoom);
-            camera.target = Vector2Add(camera.target, delta);
-        }
-        // Zoom based on mouse wheel
-        float wheel = GetMouseWheelMove();
-        if (wheel != 0)
-        {
-            // Get the world point that is under the mouse
-            Vector2 mouseWorldPos = GetScreenToWorld2D(GetMousePosition(), camera);
-
-            // Set the offset to where the mouse is
-            camera.offset = GetMousePosition();
-            
-            // Set the target to match, so that the camera maps the world space point 
-            // under the cursor to the screen space point under the cursor at any zoom
-            camera.target = mouseWorldPos;
-
-            // Zoom increment
-            // Uses log scaling to provide consistent zoom speed
-            float scale = 0.2f*wheel;
-            camera.zoom = Clamp(expf(logf(camera.zoom)+scale), 0.125f, 64.0f);
-
-            mouseWorldPos = camera.target;
-            camera.offset = Vector2Add(camera.offset, mouseWorldPos);
-            camera.target = {0,0};
-
-        }
+        
 
         BeginMode2D(camera);
-        for(int i = 0; i < 250; i++) {
-            for(int j = 0; j < 250; j++) {
-                DrawRectangle(i*4, j*4, 4, 4, (Color){(unsigned char)(i %255), (unsigned char)((i+j)/2 %255), (unsigned char)(j %255), 255});
+        for(int i = 0; i < 100; i++) {
+            for(int j = 0; j < 100; j++) {
+                DrawRectangle(i*10, j*10, 10, 10, (Color){(unsigned char)(i %255), (unsigned char)((i+j)/2 %255), (unsigned char)(j %255), 255});
             }
         }        
         EndMode2D();
