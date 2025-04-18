@@ -155,24 +155,9 @@ int main(int, char**) {
             // Adjust the camera target to keep the same world point under the mouse
             camera.target = Vector2Add(camera.target, offsetChange);
         }
-        
-        float halfScreenWidth = GetScreenWidth() * 0.5f / camera.zoom;
-        float halfScreenHeight = GetScreenHeight() * 0.5f / camera.zoom;
 
-        Rectangle worldBounds = { -500, -500, 1000, 1000 };
-
-        Vector2 min = {
-            worldBounds.x + halfScreenWidth,
-            worldBounds.y + halfScreenHeight
-        };
-
-        Vector2 max = {
-            worldBounds.x + worldBounds.width - halfScreenWidth,
-            worldBounds.y + worldBounds.height - halfScreenHeight
-        };
-
-        camera.target.x = Clamp(camera.target.x, min.x, max.x);
-        camera.target.y = Clamp(camera.target.y, min.y, max.y);
+        camera.target.x = Clamp(camera.target.x, -100, 1100 - SCREEN_WIDTH / camera.zoom);
+        camera.target.y = Clamp(camera.target.y, -100, 1100 - SCREEN_HEIGHT / camera.zoom);
         
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
@@ -190,9 +175,10 @@ int main(int, char**) {
         
 
         BeginMode2D(camera);
-        for(int i = 0; i < 100; i++) {
-            for(int j = 0; j < 100; j++) {
-                DrawRectangle(i*10, j*10, 10, 10, (Color){(unsigned char)(i %255), (unsigned char)((i+j)/2 %255), (unsigned char)(j %255), 255});
+        
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                DrawRectangle(i*100, j*100, 100, 100, (Color){(unsigned char)(i*40 %255), (unsigned char)((i+j) %255), (unsigned char)(j*35 %255), 255});
             }
         }        
         EndMode2D();
