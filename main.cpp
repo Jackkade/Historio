@@ -143,7 +143,7 @@ int main(int, char**) {
             // Zoom increment
             // Uses log scaling to provide consistent zoom speed
             float scale = 0.2f*wheel;
-            camera.zoom = Clamp(expf(logf(camera.zoom)+scale), 0.125f, 64.0f);
+            camera.zoom = Clamp(expf(logf(camera.zoom)+scale), 0.5f, 8.0f);
 
             // Recalculate the camera's target after zooming
             // Get the world position under the mouse again after zoom change
