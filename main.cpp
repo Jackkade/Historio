@@ -81,6 +81,8 @@ int main(int, char**) {
     bool LocationViewNameEditMode = false;
     char LocationViewName[128] = "SAMPLE TEXT";
 
+    Rectangle LocationViewBounds = {4, 4, 424, 454 };
+
     Rectangle LocationViewScrollPanelBounds = {8, 66, 160, 154};
     Rectangle LocationViewScrollPanelContent = {0, 0, 145, 600 };
     Rectangle LocationViewScrollPanelView = {0, 0, 0, 0};
@@ -116,7 +118,7 @@ int main(int, char**) {
     }
 
     locations.at(3).at(4)->changeClimate(Arctic);
-    locations.at(3).at(5)->changeClimate(Arctic);
+    locations.at(2).at(5)->changeClimate(Arctic);
     locations.at(3).at(5)->changeVegetation(Barren);
 
     Location location_1(Oceanic, Flat, Farmlands);
@@ -141,7 +143,7 @@ int main(int, char**) {
     while(!WindowShouldClose()) {
 
         
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE))
         {
             Vector2 delta = GetMouseDelta();
             delta = Vector2Scale(delta, -1.0f/camera.zoom);
@@ -186,13 +188,21 @@ int main(int, char**) {
 
         /*//     Update Objects     //*/
         location_1.update();
-        
 
-        if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT)) {
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             Vector2 selectionPos = GetScreenToWorld2D(GetMousePosition(),camera);
-            if(CheckCollisionPointRec(selectionPos, (Rectangle){0,0,1000,1000}) ) {
-                selectedLocation = locations.at((int)selectionPos.x / 100).at((int)selectionPos.y / 100);
+            
+            if(
+                (
+                    !LocationViewActive 
+                    || (LocationViewActive && !CheckCollisionPointRec(GetMousePosition(), (Rectangle){ 4, 4, 424, 454 }))
+                ) 
+                && CheckCollisionPointRec(selectionPos, (Rectangle){0,0,1000,1000})
+            ) {
+                Location* l = locations.at((int)selectionPos.x / 100).at((int)selectionPos.y / 100);
+                selectedLocation = l; 
                 selectedSettlement = selectedLocation->getCountryside();
+                strncpy(LocationViewName, l->getName().c_str(), 128);
             }
         }
 
@@ -255,15 +265,22 @@ int main(int, char**) {
 
         
         if (LocationViewActive) {
-            LocationViewActive = !GuiWindowBox((Rectangle){ 4, 4, 424, 454 }, "");
+            LocationViewActive = !GuiWindowBox(LocationViewBounds, "");
             if (GuiTextBox((Rectangle){ 8, 32, 160, 30 }, LocationViewName, 128, LocationViewNameEditMode)) {
                 LocationViewNameEditMode = !LocationViewNameEditMode;
                 selectedLocation->changeName(LocationViewName);
             }
             GuiGroupBox((Rectangle){172, 38, 252, 200}, "Location Info");
-            GuiLabel((Rectangle){176, 38, 140, 30}, LocationViewDisplayStrings[4].c_str());
-            GuiLabel((Rectangle){176, 52, 140, 30}, LocationViewDisplayStrings[5].c_str());
-            GuiLabel((Rectangle){176, 66, 140, 30}, LocationViewDisplayStrings[6].c_str());
+            if (GuiLabelButton((Rectangle){176, 38, 140, 30}, LocationViewDisplayStrings[4].c_str())) {
+                selectedLocation->changeClimate((Climate)((selectedLocation->getClimate() + 1) % 7));
+            }
+            
+            if (GuiLabelButton((Rectangle){176, 52, 140, 30}, LocationViewDisplayStrings[5].c_str())) {
+                selectedLocation->changeTerrain((Terrain)((selectedLocation->getTerrain() + 1) % 7));
+            }
+            if (GuiLabelButton((Rectangle){176, 66, 140, 30}, LocationViewDisplayStrings[6].c_str())) {
+                selectedLocation->changeVegetation((Vegetation)((selectedLocation->getVegetation() + 1) % 7));
+            }
             
             GuiLabel((Rectangle){176, 80, 140, 30}, LocationViewDisplayStrings[7].c_str());
             GuiProgressBar((Rectangle){174, 104, 140, 8}, NULL, NULL, &LocationViewDevelopment, 0, 100);
