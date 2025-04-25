@@ -271,14 +271,14 @@ int main(int, char**) {
                 selectedLocation->changeName(LocationViewName);
             }
             GuiGroupBox((Rectangle){172, 38, 252, 200}, "Location Info");
-            if (GuiLabelButton((Rectangle){176, 38, 140, 30}, LocationViewDisplayStrings[4].c_str())) {
+            if (GuiLabelButton((Rectangle){176, 44, 140, 14}, LocationViewDisplayStrings[4].c_str())) {
                 selectedLocation->changeClimate((Climate)((selectedLocation->getClimate() + 1) % 7));
             }
             
-            if (GuiLabelButton((Rectangle){176, 52, 140, 30}, LocationViewDisplayStrings[5].c_str())) {
+            if (GuiLabelButton((Rectangle){176, 58, 140, 14}, LocationViewDisplayStrings[5].c_str())) {
                 selectedLocation->changeTerrain((Terrain)((selectedLocation->getTerrain() + 1) % 7));
             }
-            if (GuiLabelButton((Rectangle){176, 66, 140, 30}, LocationViewDisplayStrings[6].c_str())) {
+            if (GuiLabelButton((Rectangle){176, 72, 140, 14}, LocationViewDisplayStrings[6].c_str())) {
                 selectedLocation->changeVegetation((Vegetation)((selectedLocation->getVegetation() + 1) % 7));
             }
             
