@@ -9,7 +9,9 @@
 
 class Settlement {
 public:
+    
     Settlement(Location* l);
+    Settlement(Location* l, bool b);
     ~Settlement();
 
 

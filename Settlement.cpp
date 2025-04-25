@@ -4,6 +4,10 @@ Settlement::Settlement(Location *l) {
     m_location = l;
     l->addSettlement(this);
 }
+Settlement::Settlement(Location *l, bool b) {
+    m_location = l;
+    //l->addSettlement(this);
+}
 
 Settlement::~Settlement()
 {

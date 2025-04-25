@@ -114,6 +114,7 @@ int main(int, char**) {
         for(int j = 0; j < 10; j++) {
             locations.at(i).push_back(new Location{Oceanic, Flat, Farmlands});
             locations.at(i).at(j)->changeName(std::to_string(i) + " " + std::to_string(j));
+            new Pop{100, locations.at(i).at(j)->getCountryside()};
         }
     }
 
@@ -124,21 +125,10 @@ int main(int, char**) {
     Location location_1(Oceanic, Flat, Farmlands);
     location_1.changeName("Eden");
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
-    
-    Settlement settlement_1(&location_1);
-    settlement_1.changeName("Adam");
-
-    Settlement settlement_2(&location_1);
-    settlement_2.changeName("Eve");
-
-    Settlement settlement_3(&location_1);
-    settlement_3.changeName("Seth");
-
-    Pop tribe(100, settlement_1);
 
     
-    Location* selectedLocation = &location_1;
-    Settlement* selectedSettlement = location_1.getCountryside();
+    Location* selectedLocation = locations.at(0).at(0);
+    Settlement* selectedSettlement = selectedLocation->getCountryside();
     
     while(!WindowShouldClose()) {
 
@@ -187,7 +177,11 @@ int main(int, char**) {
 
 
         /*//     Update Objects     //*/
-        location_1.update();
+        for(vector<Location*> vl : locations) {
+            for(Location* l : vl) {
+                l->update();
+            }
+        }
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             Vector2 selectionPos = GetScreenToWorld2D(GetMousePosition(),camera);
@@ -233,7 +227,7 @@ int main(int, char**) {
         /*//     Draw User Interface (UI)     //*/
         //      Pop Info
         LocationViewDisplayStrings[0] = ("Population: " + std::to_string(selectedSettlement->getPopulation()));
-        LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(selectedSettlement->getUnrest()));        
+        LocationViewDisplayStrings[1] = ("Unrest: " + std::to_string(selectedSettlement->getUnrest() / 100));        
         LocationViewDisplayStrings[3] = ("SOL: " + std::to_string(selectedSettlement->getSOL()));
         
         //      Location Info
@@ -251,7 +245,7 @@ int main(int, char**) {
         LocationViewDisplayStrings[12] = ("Total Population: " + std::to_string(selectedLocation->getPopulation()));
         LocationViewDisplayStrings[13] = ("Total Food: " + std::to_string(selectedLocation->getFood()));
         LocationViewDisplayStrings[14] = ("Average SOL: " + std::to_string(selectedLocation->getSOL()));
-        LocationViewDisplayStrings[15] = ("Average Unrest: " + std::to_string(selectedLocation->getUnrest()));
+        LocationViewDisplayStrings[15] = ("Average Unrest: " + std::to_string(selectedLocation->getUnrest() / 100));
         LocationViewDisplayStrings[16] = ("Average Control: " + std::to_string(selectedLocation->getControl() / 100) + "." + std::to_string(selectedLocation->getControl() % 100));
         float LocationViewLocationAvgControl = (float)selectedLocation->getControl() / 100;
 
@@ -260,7 +254,7 @@ int main(int, char**) {
         LocationViewDisplayStrings[10] = ("Rank: " + rankNames.at(selectedSettlement->getRank()));
         LocationViewDisplayStrings[11] = ("Control: " + std::to_string(selectedSettlement->getControl() / 100) + "." + std::to_string(selectedSettlement->getControl() % 100));
         float LocationViewSettlementControl = (float)selectedSettlement->getControl() / 100;
-        LocationViewDisplayStrings[2] = ("Average Unrest: " + std::to_string(selectedSettlement->getUnrest()));
+        LocationViewDisplayStrings[2] = ("Average Unrest: " + std::to_string(selectedSettlement->getUnrest() / 100));
         LocationViewDisplayStrings[17] = ("Average SOL: " + std::to_string(selectedSettlement->getSOL()));
 
         

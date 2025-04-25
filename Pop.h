@@ -11,8 +11,8 @@ public:
         From now on, Pops should always be in a location.
     */
     //Constructors
-    Pop(Settlement& l);                                 //Default in Settlement
-    Pop(unsigned int population, Settlement& l);        //With Pop, in Settlement
+    Pop(Settlement* l);                                 //Default in Settlement
+    Pop(unsigned int population, Settlement* l);        //With Pop, in Settlement
 
     //TODO: once reference are added, make constructors require pointers
     
@@ -23,7 +23,7 @@ public:
     void addPopulation(int a);
     void addUnrest(int a);
     void addSOL(int a);
-    void setSettlement(Settlement& l);
+    void setSettlement(Settlement* l);
 
     //Getters
     unsigned int getPopulation() { return m_population; }
