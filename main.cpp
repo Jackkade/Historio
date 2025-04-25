@@ -2,6 +2,8 @@
 #define SCREEN_HEIGHT 720
 #include <iostream>
 #include <map>
+#include <vector>
+using std::vector;
 #include <string>
 using std::string;
 #include <raylib.h>
@@ -102,6 +104,21 @@ int main(int, char**) {
     GuiSetFont(font);
 
     //  Game Mechanics
+
+    vector<vector<Location*>> locations;
+
+    for(int i = 0; i < 10; i++) {
+        locations.push_back(vector<Location*>{});
+        for(int j = 0; j < 10; j++) {
+            locations.at(i).push_back(new Location{Oceanic, Flat, Farmlands});
+            locations.at(i).at(j)->changeName(std::to_string(i) + " " + std::to_string(j));
+        }
+    }
+
+    locations.at(3).at(4)->changeClimate(Arctic);
+    locations.at(3).at(5)->changeClimate(Arctic);
+    locations.at(3).at(5)->changeVegetation(Barren);
+
     Location location_1(Oceanic, Flat, Farmlands);
     location_1.changeName("Eden");
     strncpy(LocationViewName, location_1.getName().c_str(), 128);
@@ -159,26 +176,46 @@ int main(int, char**) {
         camera.target.x = Clamp(camera.target.x, -100, 1100 - SCREEN_WIDTH / camera.zoom);
         camera.target.y = Clamp(camera.target.y, -100, 1100 - SCREEN_HEIGHT / camera.zoom);
         
+        
+
         /*//     Start Drawing Frame     //*/
         BeginDrawing();
         ClearBackground(BLACK);
-        
+        BeginMode2D(camera);
+
 
         /*//     Update Objects     //*/
         location_1.update();
         
 
+        if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT)) {
+            Vector2 selectionPos = GetScreenToWorld2D(GetMousePosition(),camera);
+            if(CheckCollisionPointRec(selectionPos, (Rectangle){0,0,1000,1000}) ) {
+                selectedLocation = locations.at((int)selectionPos.x / 100).at((int)selectionPos.y / 100);
+                selectedSettlement = selectedLocation->getCountryside();
+            }
+        }
 
 
         /*//    Draw Map    //*/
 
         
 
-        BeginMode2D(camera);
         
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
-                DrawRectangle(i*100, j*100, 100, 100, (Color){(unsigned char)(i*40 %255), (unsigned char)((i+j) %255), (unsigned char)(j*35 %255), 255});
+                
+                DrawRectangle(
+                    i*100, 
+                    j*100, 
+                    100, 
+                    100, 
+                    (Color){
+                        (unsigned char)(locations.at(i).at(j)->getClimate() * 20), 
+                        (unsigned char)(locations.at(i).at(j)->getTerrain() * 20 + i),
+                        (unsigned char)(locations.at(i).at(j)->getVegetation() * 20 + j), 
+                        255}
+                );
             }
         }        
         EndMode2D();
